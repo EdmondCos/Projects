@@ -29,7 +29,7 @@ class Table {
         rounds++;
     }
 
-    boolean isGameOver() {
+    int isGameOver() {
         if (rounds >= 4) {
             if ((table[0][0] == table[0][1] && table[0][1] == table[0][2] && table[0][0] == chars[1]) ||
                     (table[1][0] == table[1][1] && table[1][1] == table[1][2] && table[1][0] == chars[1]) ||
@@ -41,8 +41,7 @@ class Table {
 
                     (table[0][0] == table[1][1] && table[1][1] == table[2][2] && table[0][0] == chars[1]) ||
                     (table[0][2] == table[1][1] && table[1][1] == table[2][0] && table[0][2] == chars[1])) {
-                System.out.println("Player X won!");
-                return true;
+                return 1;
             } else if ((table[0][0] == table[0][1] && table[0][1] == table[0][2] && table[0][0] == chars[2]) ||
                     (table[1][0] == table[1][1] && table[1][1] == table[1][2] && table[1][0] == chars[2]) ||
                     (table[2][0] == table[2][1] && table[2][1] == table[2][2] && table[2][2] == chars[2]) ||
@@ -53,14 +52,12 @@ class Table {
 
                     (table[0][0] == table[1][1] && table[1][1] == table[2][2] && table[0][0] == chars[2]) ||
                     (table[0][2] == table[1][1] && table[1][1] == table[2][0] && table[0][2] == chars[2])) {
-                System.out.println("Player O won!");
-                return true;
+                return 2;
             } else if (rounds == 9) {
-                System.out.println("Draw!");
-                return true;
+                return 3;
             }
         }
-        return false;
+        return 4;
     }
 
     String print() {

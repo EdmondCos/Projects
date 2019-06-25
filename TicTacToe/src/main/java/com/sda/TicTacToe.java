@@ -10,9 +10,10 @@ public class TicTacToe {
     }
 
     private boolean turnX = true;
+    private boolean gameOn = true;
 
     public void playGame() {
-        while (!table.isGameOver()) {
+        while (gameOn) {
             System.out.println();
             if (turnX) {
                 System.out.println("Player X turn");
@@ -33,8 +34,19 @@ public class TicTacToe {
                 table.updateO(c);
                 turnX = true;
             }
-
             System.out.println(table.print());
+
+            if (table.isGameOver() == 1) {
+                System.out.println("Player X won!");
+                gameOn = false;
+            } else if (table.isGameOver() == 2) {
+                System.out.println("Player O won!");
+                gameOn = false;
+            } else if (table.isGameOver() == 3) {
+                System.out.println("Draw!");
+                gameOn = false;
+            }
+
         }
     }
 }
