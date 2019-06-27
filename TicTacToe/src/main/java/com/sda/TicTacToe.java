@@ -12,6 +12,7 @@ public class TicTacToe {
     private boolean turnX = true;
     private boolean gameOn = true;
 
+
     public void playGame() {
         while (gameOn) {
             System.out.println();

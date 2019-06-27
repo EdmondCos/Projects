@@ -1,55 +1,24 @@
-import java.util.Random;
-import java.util.Scanner;
 
 public class Hangman {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
+    private IPlayer player;
+    private Board board;
 
-        int counterLose = 0;
-        int counterWin = 0;
+    Hangman(IPlayer player) {
+        this.player = player;
+        board = new Board("cuvant");
+    }
 
-        String[] library = {"masa", "casa", "para", "merisoare", "cangur",
-                "dulceata", "telefon", "cablu", "patine", "noapte"};
-        int rdm = random.nextInt(10);
-        String[] cuvant = library[rdm].split("");
-        String[] original = library[rdm].split("");
-        String x = "_";
-
-        for (int i = 1; i < cuvant.length - 1; i++) {
-            cuvant[i] = "_";
+    public void playGame() {
+        int x = 0;
+        while (!board.isGameOver()) {
+            System.out.println(board.print());
+            x = board.leterReveal(player.guessLetter());
+            System.out.println("Counter: " + x + ". If counter reaches 5 you lose!");
         }
-
-        while (counterLose != 5 && counterWin != cuvant.length - 2) {
-            for (String i : cuvant) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
-            System.out.println("Counter: " + counterLose + ". If counter reaches 5 you lose!");
-            System.out.print("Guess a letter: ");
-            String litera = scanner.next();
-            System.out.println();
-
-            boolean bol = true;
-            for (int j = 1; j < cuvant.length - 1; j++) { //search
-                if (litera.equals(original[j])) {
-                    if (x.equals(cuvant[j])) {
-                        cuvant[j] = litera;
-                        bol = false;
-                        counterWin++;
-                        break;
-                    }
-                }
-            }
-            if (bol) {
-                counterLose++;
-            }
-        }
-
-        if (counterWin == cuvant.length - 2) {
-            System.out.println(library[rdm] + " - You won!");
+        if (x == 5) {
+            System.out.println("You lost!");
         } else {
-            System.out.println(library[rdm] + " - You lost!");
+            System.out.println("You won! - " + board.print());
         }
     }
 }
