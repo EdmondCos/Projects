@@ -10,11 +10,15 @@ public class Hangman {
 
     public void playGame() {
         int x = 0;
+
         while (!board.isGameOver()) {
             System.out.println(board.print());
-            x = board.leterReveal(player.guessLetter());
+            if (!board.isMatch(player.guessLetter())) {
+                x++;
+            }
             System.out.println("Counter: " + x + ". If counter reaches 5 you lose!");
         }
+
         if (x == 5) {
             System.out.println("You lost!");
         } else {

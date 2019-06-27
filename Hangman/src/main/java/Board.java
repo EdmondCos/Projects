@@ -15,15 +15,16 @@ public class Board {
     private int counterL = 0;
     private int counterW = 0;
 
-    int leterReveal(char letter) {
+    boolean isMatch(char letter) {
         for (Word l : word) {
             if (l.letter == letter) {
                 l.hide = false;
                 counterW++;
-                return counterL;
+                return true;
             }
         }
-        return ++counterL;
+        counterL++;
+        return false;
     }
 
     boolean isGameOver() {
