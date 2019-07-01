@@ -1,23 +1,19 @@
 import java.time.LocalDate;
 
-public class Reservation {
-    LocalDate date;
-    String name;
-    int roomNr;
+class Reservation {
+    private LocalDate date;
+    private String name;
+    private int roomNr;
 
-    public Reservation(LocalDate date, String name, int roomNr) {
+    Reservation(LocalDate date, String name, int roomNr) {
         this.date = date;
         this.name = name;
         this.roomNr = roomNr;
     }
 
-    @Override
-    public boolean equals(Object x) {
-        if (x instanceof Reservation) {
-            Reservation tmp = (Reservation) x;
-            return this.date.equals(tmp.date) && this.roomNr == tmp.roomNr;
-        }
-        return false;
+    boolean isReserved(Reservation x) {
+        return x.date.equals(date) && x.roomNr == roomNr;
     }
+
 
 }
