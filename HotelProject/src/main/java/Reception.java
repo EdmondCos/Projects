@@ -1,12 +1,13 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Reception {
-    private Hotel hotel = new Hotel();
-    private Room room;
+class Reception {
+    private Hotel hotel;
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<LocalDate> dates = new ArrayList<>();
+
+    Reception(){
+        hotel = new Hotel();
+    }
 
     void checkIn() {
         System.out.println("Please enter your name.");
@@ -20,23 +21,18 @@ public class Reception {
             LocalDate date = LocalDate.parse(x);
 
             while (!hotel.reserveRoom(date, name, roomNr)) {
-                System.out.println("Room " + roomNr + " is already reserved on this date." +
+                System.out.println("Room " + roomNr + " is already reserved on this date." + '\n' +
                         "Please make another selection!");
                 x = scanner.next();
                 date = LocalDate.parse(x);
             }
-            dates.add(date);
+            System.out.println("Room " + roomNr + " is now reserved under name " + name + " for date " + date);
 
             System.out.println("Press 1 if you want to select more days.");
             System.out.println("Press any key if you want to finish your reservation.");
             if (!scanner.next().equals("1")) {
                 break;
             }
-        }
-
-        for (LocalDate d : dates) {
-            hotel.reserveRoom(d, name, roomNr);
-            System.out.println("Room " + roomNr + " is now reserved name " + name + " for date " + d);
         }
     }
 }

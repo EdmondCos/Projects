@@ -15,12 +15,7 @@ class Hotel {
     }
 
     boolean reserveRoom(LocalDate date, String name, int roomNr) {
-        boolean bol = rooms.get(roomNr - 1).isValidReservation(date, name);
-        if (!bol) {
-            return false;
-        } else {
-            rooms.get(roomNr - 1).makeReservation();
-            return true;
-        }
+        return rooms.get(roomNr - 1).isValidReservation(date, name);
     }
+
 }

@@ -15,5 +15,4 @@ class Reservation {
         return x.date.equals(date) && x.roomNr == roomNr;
     }
 
-
 }
