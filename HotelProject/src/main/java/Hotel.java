@@ -5,7 +5,7 @@ import java.util.ArrayList;
 class Hotel implements Serializable {
     private ArrayList<Room> rooms;
 
-    Hotel() {
+    private Hotel() {
         rooms = new ArrayList<>();
         addRooms();
     }
