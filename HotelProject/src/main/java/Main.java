@@ -1,8 +1,8 @@
-import java.time.LocalDate;
-
 public class Main {
     public static void main(String[] args) {
-        Reception reception = new Reception();
+
+        Reception reception = new Reception(Hotel.load());
         reception.checkIn();
+
     }
 }

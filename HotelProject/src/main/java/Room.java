@@ -1,22 +1,32 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-class Room {
-    private ArrayList<Reservation> reservations = new ArrayList<>();
+class Room implements Serializable {
+    private ArrayList<Reservation> reservations;
     private int roomNr;
 
     Room(int roomNr) {
         this.roomNr = roomNr;
+        reservations = new ArrayList<>();
     }
 
-    boolean isValidReservation(LocalDate date, String name) {
+    boolean makeValidReservation(LocalDate date, String name) {
         Reservation x = new Reservation(date, name, roomNr);
-        for (Reservation r : reservations) {
-            if (r.isReserved(x)) {
-                return false;
-            }
+        if (reservations.contains(x)) {
+            return false;
+        } else {
+            reservations.add(x);
+            return true;
         }
-        reservations.add(x);
-        return true;
+    }
+
+    String printRoomReservations() {
+        StringBuilder x = new StringBuilder();
+        x.append("Room: ").append(roomNr).append(" ");
+        for (Reservation r : reservations) {
+            x.append(r.printreservations());
+        }
+        return x.toString();
     }
 }

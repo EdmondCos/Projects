@@ -1,38 +1,53 @@
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.Scanner;
 
 class Reception {
     private Hotel hotel;
-    private Scanner scanner = new Scanner(System.in);
 
-    Reception(){
-        hotel = new Hotel();
+    Reception(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    private void showMenu() {
+        System.out.println("Choose key");
+        System.out.println("1. To make a new reservation");
+        System.out.println("2. To show all the reservations of the hotel");
+        System.out.println("3. To close the application");
     }
 
     void checkIn() {
-        System.out.println("Please enter your name.");
-        String name = scanner.next();
-        System.out.println("Please select a room 1-10.");
-        int roomNr = scanner.nextInt();
+        Scanner scanner = new Scanner(System.in);
 
+        Random random = new Random();
+        int roomNr = random.nextInt(10);
         while (true) {
-            System.out.println("Please choose the date of your staying. (yyyy-mm-dd)");
-            String x = scanner.next();
-            LocalDate date = LocalDate.parse(x);
+            showMenu();
+            String key = scanner.next();
 
-            while (!hotel.reserveRoom(date, name, roomNr)) {
-                System.out.println("Room " + roomNr + " is already reserved on this date." + '\n' +
-                        "Please make another selection!");
-                x = scanner.next();
-                date = LocalDate.parse(x);
-            }
-            System.out.println("Room " + roomNr + " is now reserved under name " + name + " for date " + date);
+            switch (key) {
+                case "1":
+                    System.out.println("Type in your name");
+                    String name = scanner.next();
+                    System.out.println("Type the date for your reservation (yyyy-mm-dd)");
+                    LocalDate date = LocalDate.parse(scanner.next());
+                    while (!hotel.reserveRoom(date, name, roomNr)) {
+                        roomNr = random.nextInt(10);
+                    }
+                    System.out.println("Room " + roomNr + 1 + " was reserved under " + name + " for date " + date);
+                    break;
 
-            System.out.println("Press 1 if you want to select more days.");
-            System.out.println("Press any key if you want to finish your reservation.");
-            if (!scanner.next().equals("1")) {
-                break;
+                case "2":
+                    System.out.println(hotel.printAllReservations());
+                    break;
+
+                case "3":
+                    hotel.save();
+                    return;
             }
         }
+
     }
+
+
 }

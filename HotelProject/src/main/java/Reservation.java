@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-class Reservation {
+class Reservation implements Serializable {
     private LocalDate date;
     private String name;
     private int roomNr;
@@ -11,8 +12,7 @@ class Reservation {
         this.roomNr = roomNr;
     }
 
-    boolean isReserved(Reservation x) {
-        return x.date.equals(date) && x.roomNr == roomNr;
+    String printreservations() {
+        return '\n' + "" + date + "/" + name;
     }
-
 }
