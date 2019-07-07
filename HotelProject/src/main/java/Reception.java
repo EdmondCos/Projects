@@ -13,7 +13,8 @@ class Reception {
         System.out.println("Choose key");
         System.out.println("1. To make a new reservation");
         System.out.println("2. To show all the reservations of the hotel");
-        System.out.println("3. To close the application");
+        System.out.println("3. To print all reservations sorted by name");
+        System.out.println("4. To close the application");
     }
 
     void checkIn() {
@@ -42,6 +43,10 @@ class Reception {
                     break;
 
                 case "3":
+                    System.out.println(hotel.sortReservations());
+                    break;
+
+                case "4":
                     hotel.save();
                     return;
             }

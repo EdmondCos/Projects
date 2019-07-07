@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 class Hotel implements Serializable {
+    private static final long serialVersionUID = 5470204499441826039L;
     private ArrayList<Room> rooms;
 
     private Hotel() {
@@ -27,6 +28,18 @@ class Hotel implements Serializable {
         }
         return x.toString();
     }
+
+    ArrayList<Reservation> sortReservations(){
+        ArrayList<Reservation> res = new ArrayList<>();
+        for(Room r : rooms){
+            ArrayList<Reservation> temp = r.getAllReservations();
+            res.addAll(temp);
+        }
+        res.sort(new Reservation.ComparatorByName().reversed());
+        return res;
+    }
+
+
 
     void save() {
         try {

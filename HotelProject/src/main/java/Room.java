@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 class Room implements Serializable {
+    private static final long serialVersionUID = 6094585800702734024L;
     private ArrayList<Reservation> reservations;
     private int roomNr;
 
@@ -23,10 +24,13 @@ class Room implements Serializable {
 
     String printRoomReservations() {
         StringBuilder x = new StringBuilder();
-        x.append("Room: ").append(roomNr).append(" ");
         for (Reservation r : reservations) {
-            x.append(r.printreservations());
+            x.append(r);
         }
         return x.toString();
+    }
+
+    ArrayList<Reservation> getAllReservations(){
+        return reservations;
     }
 }
