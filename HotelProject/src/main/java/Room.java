@@ -1,25 +1,21 @@
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 class Room implements Serializable {
     private static final long serialVersionUID = 6094585800702734024L;
-    private ArrayList<Reservation> reservations;
+    private TreeSet<Reservation> reservations;
     private int roomNr;
 
     Room(int roomNr) {
         this.roomNr = roomNr;
-        reservations = new ArrayList<>();
+        reservations = new TreeSet<>();
     }
 
     boolean makeValidReservation(LocalDate date, String name) {
         Reservation x = new Reservation(date, name, roomNr);
-        if (reservations.contains(x)) {
-            return false;
-        } else {
-            reservations.add(x);
-            return true;
-        }
+        return reservations.add(x);
     }
 
     String printRoomReservations() {
@@ -30,7 +26,7 @@ class Room implements Serializable {
         return x.toString();
     }
 
-    ArrayList<Reservation> getAllReservations(){
-        return reservations;
+    ArrayList<Reservation> getAllReservations() {
+        return new ArrayList<>(reservations);
     }
 }
