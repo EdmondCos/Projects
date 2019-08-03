@@ -1,4 +1,4 @@
-package Salary;
+package com.salary;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,11 +39,11 @@ public class a {
     private JTextField venitOT;
     private JCheckBox scutiri;
     private JCheckBox liberOT;
-//    private JButton netButton;
+    private JButton netButton;
     private JButton brutButton;
 
     private String sNet;
-//    private String sBrut;
+    private String sBrut;
 
     private String numarBon;
     private String valoareBon;
@@ -149,120 +149,120 @@ public class a {
             }
         });
 
-//        netButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (netButton.isEnabled()) {
-//                    sBrut = brut.getText();
-//                    double salariuBrut = 0;
-//                    if (!sBrut.isEmpty()) {
-//                        salariuBrut = Double.valueOf(sBrut);
-//                    }
-//                    double brutFix = salariuBrut;
-//
-//
-//                    //TODO: Valoarea in caz ca userul pune "," la zecimala
-//                    valoareBon = valBon.getText();
-//                    String[] z = valoareBon.split("");
-//                    for (int i = 0; i < z.length; i++) {
-//                        if (z[i].equals(",")) {
-//                            z[i] = ".";
-//                        }
-//                    }
-//                    StringBuilder x = new StringBuilder();
-//                    for (int i = 0; i < z.length; i++) {
-//                        x.append(z[i]);
-//                    }
-//                    valoareBon = x.toString();
-//
-//                    //TODO: Calcul valoare totala a bonurilor
-//                    numarBon = nrBon.getText();
-//                    double nrBonuri = 0;
-//                    if (!numarBon.isEmpty()) {
-//                        nrBonuri = Double.valueOf(numarBon);
-//                    }
-//                    double valBonuri = 0;
-//                    if (!valoareBon.isEmpty()) {
-//                        valBonuri = Double.valueOf(valoareBon);
-//                    }
-//                    double bonuri = nrBonuri * valBonuri;
-//
-//                    //TODO: Calcul ore overtime
-//                    OTSapt = oreSaptamana.getText();
-//                    double oreSapt = 0;
-//                    if (!OTSapt.isEmpty()) {
-//                        oreSapt = Double.valueOf(OTSapt);
-//                    }
-//                    procentSapt = procentWeek.getText();
-//                    double saptProcent = Double.valueOf(procentSapt) / 100;
-//
-//
-//                    OTSarbatori = oreSarbatori.getText();
-//                    double oreSarb = 0;
-//                    if (!OTSarbatori.isEmpty()) {
-//                        oreSarb = Double.valueOf(OTSarbatori);
-//                    }
-//                    procentSarbatori = procentHoliday.getText();
-//                    double sarbProcent = Double.valueOf(procentSarbatori) / 100;
-//                    if (ziLibera) {
-//                        sarbProcent = sarbProcent - 1;
-//                    }
-//
-//
-//                    OTWeekend = oreWeekend.getText();
-//                    double OreWeekend = 0;
-//                    if (!OTWeekend.isEmpty()) {
-//                        OreWeekend = Double.valueOf(OTWeekend);
-//                    }
-//                    procentWeekend = procentWeekEnd.getText();
-//                    double weekendProcent = Double.valueOf(procentWeekend) / 100;
-//                    if (ziLibera) {
-//                        weekendProcent = weekendProcent - 1;
-//                    }
-//
-//                    //TODO: Verificare deduceri personale
-//                    double brutTotal = salariuBrut + bonuri;
-//                    double deductibil = getDeductibil(brutTotal);
-//
-//                    //TODO: Calcul estimativ CM
-//                    CMzile = zileCM.getText();
-//                    double cmZile = 0;
-//                    if (!CMzile.isEmpty()) {
-//                        cmZile = Double.valueOf(CMzile);
-//                    }
-//                    cmProcent = procentCM.getText();
-//                    double CMporcent = 1 - Double.valueOf(cmProcent) / 100;
-//                    double brutZi = brutFix / 21;
-//                    salariuBrut = salariuBrut - (brutZi * CMporcent * cmZile);
-//
-//                    //TODO: Calcule salariu net
-//                    int pUnu = (int) Math.round(salariuBrut * 0.2125);
-//                    int pDoi = (int) Math.round(salariuBrut * 0.0375);
-//                    int cass = (int) Math.round(salariuBrut * 0.10);
-//                    int asigurari = pUnu + pDoi + cass;
-//
-//                    int impozit = 0;
-//                    if (faraScutiri) {
-//                        impozit = (int) (Math.round((salariuBrut - asigurari + bonuri - deductibil) * 0.1));
-//                    }
-//
-//                    int salariuNet = (int) Math.round(salariuBrut - asigurari - impozit);
-//
-//                    // TODO: Calcul estimativ overtime
-//                    double valoareOra = (double) salariuNet / 168;
-//                    int OT = (int) Math.round((oreSapt * valoareOra * saptProcent) + (oreSarb * valoareOra * sarbProcent) + (OreWeekend * valoareOra * weekendProcent));
-//
-//                    //TODO: Output
-//                    brut.setText(String.valueOf(Math.round(salariuBrut)));
-//                    net.setText(String.valueOf(salariuNet));
-//                    pilon1.setText(String.valueOf(pUnu));
-//                    pilon2.setText(String.valueOf(pDoi));
-//                    CASS.setText(String.valueOf(cass));
-//                    Impozit.setText(String.valueOf(impozit));
-//                    venitOT.setText(String.valueOf(OT));
-//                }
-//            }
-//        });
+        netButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (netButton.isEnabled()) {
+                    sBrut = brut.getText();
+                    double salariuBrut = 0;
+                    if (!sBrut.isEmpty()) {
+                        salariuBrut = Double.valueOf(sBrut);
+                    }
+                    double brutFix = salariuBrut;
+
+
+                    //TODO: Valoarea in caz ca userul pune "," la zecimala
+                    valoareBon = valBon.getText();
+                    String[] z = valoareBon.split("");
+                    for (int i = 0; i < z.length; i++) {
+                        if (z[i].equals(",")) {
+                            z[i] = ".";
+                        }
+                    }
+                    StringBuilder x = new StringBuilder();
+                    for (int i = 0; i < z.length; i++) {
+                        x.append(z[i]);
+                    }
+                    valoareBon = x.toString();
+
+                    //TODO: Calcul valoare totala a bonurilor
+                    numarBon = nrBon.getText();
+                    double nrBonuri = 0;
+                    if (!numarBon.isEmpty()) {
+                        nrBonuri = Double.valueOf(numarBon);
+                    }
+                    double valBonuri = 0;
+                    if (!valoareBon.isEmpty()) {
+                        valBonuri = Double.valueOf(valoareBon);
+                    }
+                    double bonuri = nrBonuri * valBonuri;
+
+                    //TODO: Calcul ore overtime
+                    OTSapt = oreSaptamana.getText();
+                    double oreSapt = 0;
+                    if (!OTSapt.isEmpty()) {
+                        oreSapt = Double.valueOf(OTSapt);
+                    }
+                    procentSapt = procentWeek.getText();
+                    double saptProcent = Double.valueOf(procentSapt) / 100;
+
+
+                    OTSarbatori = oreSarbatori.getText();
+                    double oreSarb = 0;
+                    if (!OTSarbatori.isEmpty()) {
+                        oreSarb = Double.valueOf(OTSarbatori);
+                    }
+                    procentSarbatori = procentHoliday.getText();
+                    double sarbProcent = Double.valueOf(procentSarbatori) / 100;
+                    if (ziLibera) {
+                        sarbProcent = sarbProcent - 1;
+                    }
+
+
+                    OTWeekend = oreWeekend.getText();
+                    double OreWeekend = 0;
+                    if (!OTWeekend.isEmpty()) {
+                        OreWeekend = Double.valueOf(OTWeekend);
+                    }
+                    procentWeekend = procentWeekEnd.getText();
+                    double weekendProcent = Double.valueOf(procentWeekend) / 100;
+                    if (ziLibera) {
+                        weekendProcent = weekendProcent - 1;
+                    }
+
+                    //TODO: Verificare deduceri personale
+                    double brutTotal = salariuBrut + bonuri;
+                    double deductibil = getDeductibil(brutTotal);
+
+                    //TODO: Calcul estimativ CM
+                    CMzile = zileCM.getText();
+                    double cmZile = 0;
+                    if (!CMzile.isEmpty()) {
+                        cmZile = Double.valueOf(CMzile);
+                    }
+                    cmProcent = procentCM.getText();
+                    double CMporcent = 1 - Double.valueOf(cmProcent) / 100;
+                    double brutZi = brutFix / 21;
+                    salariuBrut = salariuBrut - (brutZi * CMporcent * cmZile);
+
+                    //TODO: Calcule salariu net
+                    int pUnu = (int) Math.round(salariuBrut * 0.2125);
+                    int pDoi = (int) Math.round(salariuBrut * 0.0375);
+                    int cass = (int) Math.round(salariuBrut * 0.10);
+                    int asigurari = pUnu + pDoi + cass;
+
+                    int impozit = 0;
+                    if (faraScutiri) {
+                        impozit = (int) (Math.round((salariuBrut - asigurari + bonuri - deductibil) * 0.1));
+                    }
+
+                    int salariuNet = (int) Math.round(salariuBrut - asigurari - impozit);
+
+                    // TODO: Calcul estimativ overtime
+                    double valoareOra = (double) salariuNet / 168;
+                    int OT = (int) Math.round((oreSapt * valoareOra * saptProcent) + (oreSarb * valoareOra * sarbProcent) + (OreWeekend * valoareOra * weekendProcent));
+
+                    //TODO: Output
+                    brut.setText(String.valueOf(Math.round(salariuBrut)));
+                    net.setText(String.valueOf(salariuNet));
+                    pilon1.setText(String.valueOf(pUnu));
+                    pilon2.setText(String.valueOf(pDoi));
+                    CASS.setText(String.valueOf(cass));
+                    Impozit.setText(String.valueOf(impozit));
+                    venitOT.setText(String.valueOf(OT));
+                }
+            }
+        });
 
         brutButton.addActionListener(new ActionListener() {
             @Override
