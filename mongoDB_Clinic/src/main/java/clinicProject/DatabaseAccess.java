@@ -1,15 +1,18 @@
-package clinicProject.database;
+package clinicProject;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class DatabaseAccess {
+import java.util.ArrayList;
+
+class DatabaseAccess {
+    private static DatabaseAccess db;
+
     private MongoClient client;
     private MongoDatabase clinic;
     private MongoCollection<Document> doctors;
-    private static DatabaseAccess db;
 
     private DatabaseAccess() {
         this.client = new MongoClient();
@@ -17,18 +20,21 @@ public class DatabaseAccess {
         this.doctors = clinic.getCollection("doctors");
     }
 
-    public static DatabaseAccess getDBAccess() {
+//    singleton pattern, making sure we have only 1 connection open
+    static DatabaseAccess getDBAccess() {
         if (db == null) {
             db = new DatabaseAccess();
         }
         return db;
     }
 
-    public void saveDoctor(Document doctor) {
+    ArrayList<String> getExistingPatients(String name){
+        return (ArrayList) doctors.find(new Document("name", name)).first().get("patients");
+    }
+
+    void saveDoctor(Document doctor) {
         if (contains(doctor) == null) {
             doctors.insertOne(doctor);
-        } else {
-            System.out.println("Doctor already registered!");
         }
     }
 
@@ -37,24 +43,24 @@ public class DatabaseAccess {
     }
 
 
-    public void update(String name, Document updated) {
+    void updatePatientList(String name, Document updated) {
         doctors.updateOne(new Document("name", name), new Document("$set", updated));
     }
 
 
-//    public void printPatients() {
+//    void printPatients() {
 //        for (Document document : doctors.find(new Document())) {
-//            System.out.println(document.get("pacienti"));
+//            System.out.println(document.get("patients"));
 //        }
 //    }
 //
-//    public void printDoctors() {
+//    void printDoctors() {
 //        for (Document document : doctors.find(new Document())) {
 //            System.out.println(document);
 //        }
 //    }
 
-    public static void closeClientConnection() {
+    static void closeClientConnection() {
         db.client.close();
     }
 

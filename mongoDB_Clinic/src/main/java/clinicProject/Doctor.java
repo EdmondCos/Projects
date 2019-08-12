@@ -1,11 +1,10 @@
-package clinicProject.entities;
+package clinicProject;
 
-import clinicProject.database.DatabaseAccess;
 import org.bson.Document;
 
 import java.util.ArrayList;
 
-public class Doctor {
+class Doctor {
 
     private final DatabaseAccess DB = DatabaseAccess.getDBAccess();
 
@@ -15,11 +14,19 @@ public class Doctor {
     private Document doctor;
 
 
-    public Doctor(String name, String expertise) {
+    Doctor(String name, String expertise) {
         this.name = name;
         this.expertise = expertise;
-        this.patients = new ArrayList<>();
+        this.patients = arrayList();
         DB.saveDoctor(doctor());
+    }
+
+    private ArrayList<String> arrayList() {
+        if (DB == null) {
+            return new ArrayList<>();
+        } else {
+            return DB.getExistingPatients(name);
+        }
     }
 
     private Document doctor() {
@@ -29,15 +36,13 @@ public class Doctor {
         return doctor;
     }
 
-    public void addPatient(Patient patient) {
-        if (!patients.contains(patient)) {
+    void addPatient(Patient patient) {
+        if (!patients.contains(patient.toJSON())) {
             patients.add(patient.toJSON());
             doctor = new Document("name", name).
                     append("expertise", expertise).
                     append("patients", patients);
-            DB.update(name, doctor);
-        } else {
-            System.out.println("Patient already registered!");
+            DB.updatePatientList(name, doctor);
         }
     }
 }
