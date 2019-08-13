@@ -2,6 +2,7 @@ package clinicProject;
 
 import org.bson.Document;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 class Doctor {
@@ -17,17 +18,10 @@ class Doctor {
     Doctor(String name, String expertise) {
         this.name = name;
         this.expertise = expertise;
-        this.patients = arrayList();
+        this.patients = DB.existingPatients(name);
         DB.saveDoctor(doctor());
     }
 
-    private ArrayList<String> arrayList() {
-        if (DB == null) {
-            return new ArrayList<>();
-        } else {
-            return DB.getExistingPatients(name);
-        }
-    }
 
     private Document doctor() {
         doctor = new Document("name", name).
@@ -36,14 +30,31 @@ class Doctor {
         return doctor;
     }
 
-    void addPatient(Patient patient) {
+    boolean wasPatientDeleted(String name) {
+        for (int i = 0; i < patients.size(); i++) {
+            if (patients.get(i).substring(6, 6 + name.length()).equals(name)) {
+                patients.remove(i);
+                doctor = new Document("name", this.name).
+                        append("expertise", expertise).
+                        append("patients", patients);
+                DB.updatePatientList(this.name, doctor);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void wasPatientSaved(Patient patient) {
         if (!patients.contains(patient.toJSON())) {
             patients.add(patient.toJSON());
             doctor = new Document("name", name).
                     append("expertise", expertise).
                     append("patients", patients);
             DB.updatePatientList(name, doctor);
+            System.out.println("Patient saved");
+            return;
         }
+        System.out.println("Patient already registered");
     }
 }
 

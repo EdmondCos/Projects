@@ -9,7 +9,8 @@ class Patient {
         this.diagnostic = diagnostic;
     }
 
-    String toJSON(){
+    String toJSON() {
         return "{name:" + name + ", diagnostic:" + diagnostic + "}";
+
     }
 }

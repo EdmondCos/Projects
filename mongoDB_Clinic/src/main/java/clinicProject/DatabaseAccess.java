@@ -20,7 +20,7 @@ class DatabaseAccess {
         this.doctors = clinic.getCollection("doctors");
     }
 
-//    singleton pattern, making sure we have only 1 connection open
+    //    singleton pattern, making sure we have only 1 connection open
     static DatabaseAccess getDBAccess() {
         if (db == null) {
             db = new DatabaseAccess();
@@ -28,8 +28,14 @@ class DatabaseAccess {
         return db;
     }
 
-    ArrayList<String> getExistingPatients(String name){
-        return (ArrayList) doctors.find(new Document("name", name)).first().get("patients");
+    ArrayList<String> existingPatients(String name) {
+        ArrayList x;
+        try {
+            x = (ArrayList) doctors.find(new Document("name", name)).first().get("patients");
+        } catch (java.lang.NullPointerException e) {
+            return new ArrayList<>();
+        }
+        return x;
     }
 
     void saveDoctor(Document doctor) {
