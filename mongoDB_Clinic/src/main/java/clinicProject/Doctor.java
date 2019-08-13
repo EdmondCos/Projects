@@ -30,18 +30,7 @@ class Doctor {
         return doctor;
     }
 
-    boolean wasPatientDeleted(String name) {
-        for (int i = 0; i < patients.size(); i++) {
-            if (patients.get(i).substring(6, 6 + name.length()).equals(name)) {
-                patients.remove(i);
-                doctor = new Document("name", this.name).
-                        append("expertise", expertise).
-                        append("patients", patients);
-                DB.updatePatientList(this.name, doctor);
-                return true;
-            }
-        }
-        return false;
+    void wasPatientDeleted(String name) {
     }
 
     void wasPatientSaved(Patient patient) {

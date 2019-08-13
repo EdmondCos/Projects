@@ -1,7 +1,12 @@
 package clinicProject;
 
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
@@ -43,7 +48,6 @@ class DatabaseAccess {
             doctors.insertOne(doctor);
         }
     }
-
     private Document contains(Document doctor) {
         return doctors.find(new Document("name", doctor.getString("name"))).first();
     }
@@ -51,6 +55,11 @@ class DatabaseAccess {
 
     void updatePatientList(String name, Document updated) {
         doctors.updateOne(new Document("name", name), new Document("$set", updated));
+    }
+
+    void removePatient(String patientName, Document dr){
+        BasicDBObject query = new BasicDBObject();
+
     }
 
 

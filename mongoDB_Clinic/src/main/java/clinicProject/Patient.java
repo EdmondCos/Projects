@@ -10,7 +10,7 @@ class Patient {
     }
 
     String toJSON() {
-        return "{name:" + name + ", diagnostic:" + diagnostic + "}";
+        return "{\"name\":" + name + "\"," + "\"diagnostic\":\"" + diagnostic + "\"}";
 
     }
 }
