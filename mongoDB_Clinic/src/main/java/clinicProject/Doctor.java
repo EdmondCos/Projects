@@ -30,10 +30,11 @@ class Doctor {
         return doctor;
     }
 
-    void wasPatientDeleted(String name) {
+    void deletePatient(String name) {
+        patients = DB.removePatient(name, doctor);
     }
 
-    void wasPatientSaved(Patient patient) {
+    void savePatient(Patient patient) {
         if (!patients.contains(patient.toJSON())) {
             patients.add(patient.toJSON());
             doctor = new Document("name", name).

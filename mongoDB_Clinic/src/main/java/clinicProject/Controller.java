@@ -50,7 +50,7 @@ class Controller {
 
     private void deletePatient(ArrayList<Doctor> doctorList, String name) {
         for (Doctor i : doctorList) {
-            i.wasPatientDeleted(name);
+            i.deletePatient(name);
         }
         System.out.println("Patient deleted from all records \n");
     }
@@ -80,19 +80,19 @@ class Controller {
 
         switch (nr) {
             case 1:
-                alexCardio.wasPatientSaved(patient);
+                alexCardio.savePatient(patient);
                 break;
             case 2:
-                mihaiStoma.wasPatientSaved(patient);
+                mihaiStoma.savePatient(patient);
                 break;
             case 3:
-                elenaORL.wasPatientSaved(patient);
+                elenaORL.savePatient(patient);
                 break;
             case 4:
-                danielOrto.wasPatientSaved(patient);
+                danielOrto.savePatient(patient);
                 break;
             case 5:
-                biancaKids.wasPatientSaved(patient);
+                biancaKids.savePatient(patient);
                 break;
         }
     }

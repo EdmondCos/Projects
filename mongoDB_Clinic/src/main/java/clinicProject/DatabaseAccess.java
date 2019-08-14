@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class DatabaseAccess {
@@ -48,18 +49,26 @@ class DatabaseAccess {
             doctors.insertOne(doctor);
         }
     }
+
     private Document contains(Document doctor) {
         return doctors.find(new Document("name", doctor.getString("name"))).first();
     }
 
 
-    void updatePatientList(String name, Document updated) {
-        doctors.updateOne(new Document("name", name), new Document("$set", updated));
+    void updatePatientList(String drName, Document updated) {
+        doctors.updateOne(new Document("name", drName), new Document("$set", updated));
     }
 
-    void removePatient(String patientName, Document dr){
-        BasicDBObject query = new BasicDBObject();
-
+    ArrayList<String> removePatient(String patientName, Document dr) {
+        ArrayList<String> patients = (ArrayList) dr.get("patients");
+        for (int i = 0; i < patients.size(); i++) {
+            if (patients.get(i).toLowerCase().contains(patientName.toLowerCase())) {
+                patients.remove(i);
+            }
+        }
+        Document newPatient = new Document("$set", new Document("patients", patientName));
+        doctors.updateOne(new Document("name", dr.getString("name")), newPatient);
+        return patients;
     }
 
 
