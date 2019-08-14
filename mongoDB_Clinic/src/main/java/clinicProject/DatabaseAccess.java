@@ -63,10 +63,10 @@ class DatabaseAccess {
         ArrayList<String> patients = (ArrayList) dr.get("patients");
         for (int i = 0; i < patients.size(); i++) {
             if (patients.get(i).toLowerCase().contains(patientName.toLowerCase())) {
-                patients.remove(i);
+                patients.remove(i--);
             }
         }
-        Document newPatient = new Document("$set", new Document("patients", patientName));
+        Document newPatient = new Document("$set", new Document("patients", patients));
         doctors.updateOne(new Document("name", dr.getString("name")), newPatient);
         return patients;
     }
