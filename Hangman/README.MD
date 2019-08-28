@@ -1,4 +1,4 @@
-The Hnagman game - 2d with console based UI
+The Hangman game - 2d with console based UI
 
 Key elements being:
 - automatic testing
