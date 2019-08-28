@@ -1,7 +1,6 @@
-Key elements:
+Concentration  - 2d game with console based UI
 
--automatic testing
-
--respect towards the concept of encapsulation
-
--follow the SOLID principles
+Key elements being:
+- automatic testing
+- respect towards the concept of encapsulation
+- follow the SOLID principles
