@@ -1,16 +1,16 @@
 package com.sda;
 
-import java.util.Scanner;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-class Players implements IPlayers{
-    private Scanner scanner = new Scanner(System.in);
+class Players implements IPlayers {
 
-    public int[] playerTurn() {
-        System.out.println("Select a row 1-3: ");
-        int line = scanner.nextInt() - 1;
-        System.out.println("Select a column 1-3: ");
-        int row = scanner.nextInt() - 1;
-        return new int[]{line, row};
+    public int[] playerTurn(HttpServletRequest request, HttpServletResponse response) {
+        int line = Integer.valueOf(request.getParameter("line"));
+        int column = Integer.valueOf(request.getParameter("column"));
+        return new int[]{line, column};
     }
+
+
 }
 

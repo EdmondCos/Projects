@@ -1,10 +1,10 @@
 package com.sda;
 
 public enum EChars {
-    Hash {
+    Underscore {
         @Override
         public String toString() {
-            return "#";
+            return "_";
         }
     },
 

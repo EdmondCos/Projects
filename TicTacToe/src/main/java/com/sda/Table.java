@@ -1,7 +1,6 @@
 package com.sda;
 
 class Table {
-
     private EChars[][] table;
     private EChars[] chars = EChars.values();
     private int rounds = 0;
@@ -15,18 +14,23 @@ class Table {
         }
     }
 
-    boolean isNotEmpty(int[] c) {
-        return !table[c[0]][c[1]].equals(chars[0]);
+    boolean isValidPosition(int line, int column) {
+        if ((column < 0) || (column > 2)) {
+            return false;
+        } else if ((line < 0) || (line > 2)) {
+            return false;
+        }
+        return chars[0].equals(table[line][column]);
     }
 
-    void updateX(int[] c) {
-        table[c[0]][c[1]] = chars[1];
-        rounds++;
-    }
-
-    void updateO(int[] c) {
-        table[c[0]][c[1]] = chars[2];
-        rounds++;
+    void updateTable(int[] c, String player) {
+        if (player.equals("x")) {
+            table[c[0]][c[1]] = chars[1];
+            rounds++;
+        } else {
+            table[c[0]][c[1]] = chars[2];
+            rounds++;
+        }
     }
 
     int isGameOver() {
@@ -62,9 +66,10 @@ class Table {
 
     String print() {
         StringBuilder x = new StringBuilder();
-        for (int i = 0; i < table.length; i++) {
+        x.append('\n');
+        for (EChars[] eChars : table) {
             for (int j = 0; j < table.length; j++) {
-                x.append(table[i][j]);
+                x.append(eChars[j]).append(" ");
             }
             x.append('\n');
         }
