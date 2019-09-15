@@ -1,6 +1,7 @@
-The classic game Tic Tac Toe - 2d with console based UI
+The classic game Tic Tac Toe - Web based UI
 
 Key elements being:
-- automatic testing
+- Apache Tomcat implementation 
+- http servlet requests and response
 - respect towards the concept of encapsulation
 - follow the SOLID principles
