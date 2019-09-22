@@ -1,9 +1,57 @@
 package com.sda;
 
-class Table {
+public class Table {
     private EChars[][] table;
     private EChars[] chars = EChars.values();
     private int rounds = 0;
+
+    private static String L0C0 = " ";
+    private static String L0C1 = " ";
+    private static String L0C2 = " ";
+
+    private static String L1C0 = " ";
+    private static String L1C1 = " ";
+    private static String L1C2 = " ";
+
+    private static String L2C0 = " ";
+    private static String L2C1 = " ";
+    private static String L2C2 = " ";
+
+    public static String getL0C0() {
+        return L0C0;
+    }
+
+    public static String getL0C1() {
+        return L0C1;
+    }
+
+    public static String getL0C2() {
+        return L0C2;
+    }
+
+    public static String getL1C0() {
+        return L1C0;
+    }
+
+    public static String getL1C1() {
+        return L1C1;
+    }
+
+    public static String getL1C2() {
+        return L1C2;
+    }
+
+    public static String getL2C0() {
+        return L2C0;
+    }
+
+    public static String getL2C1() {
+        return L2C1;
+    }
+
+    public static String getL2C2() {
+        return L2C2;
+    }
 
     Table() {
         table = new EChars[3][3];
@@ -23,6 +71,10 @@ class Table {
         return chars[0].equals(table[line][column]);
     }
 
+    boolean checkCurrentPlayer(String currentPlayer, String player) {
+        return currentPlayer.equals(player);
+    }
+
     void updateTable(int[] c, String player) {
         if (player.equals("x")) {
             table[c[0]][c[1]] = chars[1];
@@ -30,6 +82,32 @@ class Table {
         } else {
             table[c[0]][c[1]] = chars[2];
             rounds++;
+        }
+
+        if (c[0] == 0) {
+            if (c[1] == 0) {
+                L0C0 = player;
+            } else if (c[1] == 1) {
+                L0C1 = player;
+            } else {
+                L0C2 = player;
+            }
+        } else if (c[0] == 1) {
+            if (c[1] == 0) {
+                L1C0 = player;
+            } else if (c[1] == 1) {
+                L1C1 = player;
+            } else {
+                L1C2 = player;
+            }
+        } else {
+            if (c[1] == 0) {
+                L2C0 = player;
+            } else if (c[1] == 1) {
+                L2C1 = player;
+            } else {
+                L2C2 = player;
+            }
         }
     }
 
@@ -64,15 +142,15 @@ class Table {
         return 4;
     }
 
-    String print() {
-        StringBuilder x = new StringBuilder();
-        x.append('\n');
-        for (EChars[] eChars : table) {
-            for (int j = 0; j < table.length; j++) {
-                x.append(eChars[j]).append(" ");
-            }
-            x.append('\n');
-        }
-        return x.toString();
-    }
+//    String print() {
+//        StringBuilder x = new StringBuilder();
+//        x.append('\n');
+//        for (EChars[] eChars : table) {
+//            for (int j = 0; j < table.length; j++) {
+//                x.append(eChars[j]).append(" ");
+//            }
+//            x.append('\n');
+//        }
+//        return x.toString();
+//    }
 }
