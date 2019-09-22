@@ -12,48 +12,51 @@ import java.io.IOException;
 public class TicTacToe extends HttpServlet {
 
     private IPlayers players = new Players();
-    private Table table = new Table();
+    private Board board = new Board();
     private String currentPlayer = "x";
+    private int gameOver;
+    public static String info = " ";
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        info = " ";
 
         String player = request.getParameter("player");
-        if (!table.checkCurrentPlayer(currentPlayer, player)) {
-            response.getWriter().append("Not the player at move!");
-            return;
-        }
+        if (board.checkCurrentPlayer(currentPlayer, player)) {
 
-        int[] coordonates = players.playerTurn(request);
-        if (!table.isValidPosition(coordonates[0], coordonates[1])) {
-            return;
-        }
+            int[] coordonates = players.playerTurn(request);
+            if (board.isValidPosition(request, coordonates)) {
+                board.updateTable(coordonates, player);
 
-        table.updateTable(coordonates, player);
+                gameOver = board.isGameOver(player);
+                if (gameOver == 1) {
+                    info = ("Player " + player + " won!");
+                } else if (gameOver == 2) {
+                    info = "Draw!";
+                }
 
-        if (table.isGameOver() == 1) {
-            response.getWriter().append("Player X won!");
-//            System.out.println("Player X won!");
-            return;
-        } else if (table.isGameOver() == 2) {
-            response.getWriter().append("Player 0 won!");
-//            System.out.println("Player 0 won!");
-            return;
-        } else if (table.isGameOver() == 3) {
-            response.getWriter().append("Draw");
-//            System.out.println("Draw");
-            return;
-        }
+                if (currentPlayer.equals("x")) {
+                    currentPlayer = "0";
+                } else {
+                    currentPlayer = "x";
+                }
+            }
 
-        if (currentPlayer.equals("x")) {
-            currentPlayer = "0";
         } else {
-            currentPlayer = "x";
+            info = "Not the player at move!";
         }
 
-//        System.out.println(table.print());
+        if (gameOver != 3) {
+            restart();
+        }
 
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+
+    }
+
+    void restart() {
+        currentPlayer = "x";
+        board = new Board();
     }
 }
 
