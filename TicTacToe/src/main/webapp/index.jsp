@@ -1,4 +1,4 @@
-<%@ page import="com.sda.TicTacToe, com.sda.Board"%>
+<%@ page import="com.sda.servlets.*, com.sda.gameMechanics.*"%>
 
 <html>
 <head>
@@ -6,7 +6,7 @@
 
 <body>
 
-<form action="TicTacToe">
+<form action="PlayGame">
 Current Player:
 <select name="player">
     <option value="x">Player X</option>

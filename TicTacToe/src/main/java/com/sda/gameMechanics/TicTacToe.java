@@ -1,24 +1,16 @@
-package com.sda;
-
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+package com.sda.gameMechanics;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-@WebServlet("/TicTacToe")
-public class TicTacToe extends HttpServlet {
-
-    private IPlayers players = new Players();
-    private Board board = new Board();
-    private String currentPlayer = "x";
-    private int gameOver;
+public class TicTacToe {
     public static String info = " ";
 
+    private static IPlayers players = new Players();
+    private static Board board = new Board();
+    private static String currentPlayer = "x";
+    private static int gameOver;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+    public static void playGame(HttpServletRequest request){
         info = " ";
 
         String player = request.getParameter("player");
@@ -49,12 +41,9 @@ public class TicTacToe extends HttpServlet {
         if (gameOver != 3) {
             restart();
         }
-
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-
     }
 
-    void restart() {
+    public static void restart() {
         currentPlayer = "x";
         board = new Board();
     }

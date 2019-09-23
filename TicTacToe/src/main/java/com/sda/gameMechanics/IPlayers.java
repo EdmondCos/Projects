@@ -1,4 +1,4 @@
-package com.sda;
+package com.sda.gameMechanics;
 
 import javax.servlet.http.HttpServletRequest;
 
