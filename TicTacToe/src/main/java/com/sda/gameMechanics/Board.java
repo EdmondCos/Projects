@@ -1,9 +1,9 @@
-package com.sda;
+package com.sda.gameMechanics;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class Board {
-    private int rounds = 0;
+    private int rounds;
 
     public static String L0C0 = "_";
     public static String L0C1 = "_";

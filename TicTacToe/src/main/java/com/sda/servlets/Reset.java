@@ -1,4 +1,6 @@
-package com.sda;
+package com.sda.servlets;
+
+import com.sda.gameMechanics.TicTacToe;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +11,9 @@ import java.io.IOException;
 
 @WebServlet("/Reset")
 public class Reset extends HttpServlet {
-    private TicTacToe ticTacToe = new TicTacToe();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        ticTacToe.restart();
+        TicTacToe.restart();
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }
