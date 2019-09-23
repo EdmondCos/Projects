@@ -1,6 +1,4 @@
 package com.sda.gameMechanics;
-
-
 import javax.servlet.http.HttpServletRequest;
 
 public class TicTacToe {
