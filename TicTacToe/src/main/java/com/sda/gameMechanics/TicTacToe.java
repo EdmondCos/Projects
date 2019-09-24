@@ -1,16 +1,33 @@
 package com.sda.gameMechanics;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class TicTacToe {
-    public static String info = " ";
+    public static String info;
 
-    private static IPlayers players = new Players();
-    private static Board board = new Board();
-    private static String currentPlayer = "x";
-    private static int gameOver;
+    private IPlayers players;
+    private Board board;
+    private String currentPlayer;
+    private int gameOver;
+
+    private TicTacToe() {
+        info = " ";
+
+        this.players = new Players();
+        this.board = new Board();
+        this.currentPlayer = "x";
+
+    }
+
+    private static TicTacToe start = new TicTacToe();
+
+    public static TicTacToe getInstance() {
+        return start;
+    }
 
 
-    public static void playGame(HttpServletRequest request){
+    public void playGame(HttpServletRequest request) {
+        TicTacToe.getInstance();
         info = " ";
 
         String player = request.getParameter("player");
@@ -43,7 +60,7 @@ public class TicTacToe {
         }
     }
 
-    public static void restart() {
+    public void restart() {
         currentPlayer = "x";
         board = new Board();
     }

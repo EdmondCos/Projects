@@ -11,9 +11,10 @@ import java.io.IOException;
 
 @WebServlet("/Reset")
 public class Reset extends HttpServlet {
+    private TicTacToe ticTacToe = TicTacToe.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        TicTacToe.restart();
+        ticTacToe.restart();
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

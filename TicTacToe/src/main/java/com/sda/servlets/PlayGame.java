@@ -11,9 +11,10 @@ import java.io.IOException;
 
 @WebServlet("/PlayGame")
 public class PlayGame extends HttpServlet {
+    private TicTacToe ticTacToe = TicTacToe.getInstance();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        TicTacToe.playGame(request);
+        ticTacToe.playGame(request);
 
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 
