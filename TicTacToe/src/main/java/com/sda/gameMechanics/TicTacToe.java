@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class TicTacToe {
     public static String info;
-
     private IPlayers players;
     private Board board;
     private String currentPlayer;
@@ -12,11 +11,9 @@ public class TicTacToe {
 
     private TicTacToe() {
         info = " ";
-
         this.players = new Players();
         this.board = new Board();
         this.currentPlayer = "x";
-
     }
 
     private static TicTacToe start = new TicTacToe();
