@@ -1,9 +1,9 @@
-package main.rest;
+package rest;
 
-import main.entities.Account;
+import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import main.services.AccountService;
+import services.AccountService;
 
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class AccountController {
     AccountService accountService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public Set<Account> getAccount() {
+    public Set<Account> getAccounts() {
         return accountService.getAccounts();
     }
 
@@ -33,4 +33,5 @@ public class AccountController {
     public void deleteAccount(@RequestParam("username") String username) {
         accountService.delete(username);
     }
+
 }
