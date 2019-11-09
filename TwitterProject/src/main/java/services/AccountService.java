@@ -5,7 +5,6 @@ import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,12 +14,12 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    public Set<Account> getAccounts() {
-        Set<Account> result = new HashSet<>();
+    public Set<Account> getAllAccounts() {
+        Set<Account> results = new HashSet<>();
         for (Account account : accountRepository.findAll()) {
-            result.add(account);
+            results.add(account);
         }
-        return result;
+        return results;
     }
 
     public Account getAccount(String username) {

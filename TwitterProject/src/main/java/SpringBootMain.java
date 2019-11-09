@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({"rest", "services", "dao"})
+@ComponentScan({"rest", "services", "dao", "mvc"})
 @EnableJpaRepositories
 @EntityScan("entities")
 public class SpringBootMain {

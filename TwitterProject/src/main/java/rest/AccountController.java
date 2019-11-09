@@ -15,8 +15,8 @@ public class AccountController {
     AccountService accountService;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public Set<Account> getAccounts() {
-        return accountService.getAccounts();
+    public Set<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -24,7 +24,7 @@ public class AccountController {
         return accountService.getAccount(username);
     }
 
-    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "", consumes = "application/js", produces = "application/js")
     public Account createAccount(@RequestBody Account account) {
         return accountService.createAccount(account);
     }
