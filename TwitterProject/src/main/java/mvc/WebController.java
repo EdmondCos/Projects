@@ -18,9 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/mvc")
@@ -43,38 +41,13 @@ public class WebController {
     }
 
     private Set<Account> getAccountsFromExternalSources() {
-//        RestTemplate restTemplate = new RestTemplate();
-//        String fooResourceUrl = "http://localhost:8080/twitter/account/all";
-//        ResponseEntity<String> response = restTemplate.getForEntity(fooResourceUrl + "/1", String.class);
+        RestTemplate connection = new RestTemplate();
+        String url = "http://localhost:8080/twitter/account/all";
+        ResponseEntity<Account[]> response = connection.getForEntity(url, Account[].class);
 
+        HashSet<Account> accounts = new HashSet<>();
+        Collections.addAll(accounts, Objects.requireNonNull(response.getBody()));
 
-        HttpURLConnection connection = null;
-        try {
-
-            {
-                URL url = new URL("http://localhost:8080/twitter/account/all");
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-            }
-
-            String content;
-
-            {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((inputLine = reader.readLine()) != null) {
-                    stringBuilder.append(inputLine);
-                }
-                reader.close();
-                content = stringBuilder.toString();
-            }
-            return new HashSet<>(Arrays.asList(new ObjectMapper().readValue(content, Account[].class)));
-
-        } catch (Exception e) {
-            throw new RuntimeException();
-        } finally {
-            connection.disconnect();
-        }
+        return accounts;
     }
 }
