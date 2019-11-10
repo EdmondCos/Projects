@@ -1,1 +1,1 @@
-create table account(username varchar primary key, password varchar, email varchar);
+create table account(username varchar, password varchar, email varchar primary key);

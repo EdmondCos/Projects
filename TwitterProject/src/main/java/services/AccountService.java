@@ -12,7 +12,7 @@ import java.util.Set;
 public class AccountService {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     public Set<Account> getAllAccounts() {
         Set<Account> results = new HashSet<>();
@@ -22,8 +22,8 @@ public class AccountService {
         return results;
     }
 
-    public Account getAccount(String username) {
-        return accountRepository.findById(username).get();
+    public Account getAccount(String email) {
+        return accountRepository.findById(email).get();
     }
 
     public Account createAccount(Account account) {
@@ -31,8 +31,18 @@ public class AccountService {
         return account;
     }
 
-    public void delete(String username) {
-        accountRepository.deleteById(username);
+    public boolean exisitsAccount(Account account) {
+        Account exisiting;
+        try {
+            exisiting = accountRepository.findById(account.getEmail()).get();
+        } catch (java.util.NoSuchElementException e) {
+            return false;
+        }
+        return exisiting.getPassword().equals(account.getPassword());
+    }
+
+    public void delete(String email) {
+        accountRepository.deleteById(email);
     }
 
 }

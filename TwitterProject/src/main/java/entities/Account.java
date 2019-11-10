@@ -11,16 +11,17 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "account")
-@EqualsAndHashCode(of = {"username"})
+@EqualsAndHashCode(of = {"email"})
 public class Account {
 
     @Id
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
     private String password;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(unique = true)
+    private String username;
+
 
 }

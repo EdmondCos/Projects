@@ -20,8 +20,8 @@ public class AccountController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Account getAccount(@RequestParam(name = "username") String username) {
-        return accountService.getAccount(username);
+    public Account getAccount(@RequestParam(name = "email") String email) {
+        return accountService.getAccount(email);
     }
 
     @PostMapping(value = "", consumes = "application/js", produces = "application/js")
@@ -30,8 +30,8 @@ public class AccountController {
     }
 
     @DeleteMapping(value = "")
-    public void deleteAccount(@RequestParam("username") String username) {
-        accountService.delete(username);
+    public void deleteAccount(@RequestParam("email") String email) {
+        accountService.delete(email);
     }
 
 }

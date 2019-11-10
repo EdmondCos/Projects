@@ -1,44 +1,66 @@
 package mvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import services.AccountService;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = "/mvc")
+@RequestMapping(value = "")
 public class WebController {
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
+
+    @GetMapping({""})
+    public String homePage(Model model) {
+        return "login";
+    }
 
     @GetMapping({"/all"})
     public String getAccounts(Model model) {
         model.addAttribute("accounts", getAccountsFromExternalSources());
-        return "html";
+        return "userHome";
     }
 
     @GetMapping(value = "/delete")
     public String deleteAccount(Model model, @RequestParam("username") String username) {
         accountService.delete(username);
         model.addAttribute("accounts", getAccountsFromExternalSources());
-        return "html";
+        return "userHome";
     }
+
+    @GetMapping(value = "/login")
+    public String login(Model model, @ModelAttribute Account account) {
+        System.out.println("test " + account.getEmail() + " " + account.getPassword());
+        boolean x = accountService.exisitsAccount(account);
+        if (x) {
+            System.out.println("correct data");
+            return "userHome";
+        } else {
+            System.out.println("bad credentials");
+            return "login";
+        }
+    }
+
+    @GetMapping(value = "/register")
+    public String newAccount(Model model) {
+        return "register";
+    }
+
+    @GetMapping(value = "/save-account")
+    public String saveAccount(Model model, @ModelAttribute Account account) {
+        accountService.createAccount(account);
+        model.addAttribute("accounts", getAccountsFromExternalSources());
+        return "userHome";
+    }
+
 
     private Set<Account> getAccountsFromExternalSources() {
         RestTemplate connection = new RestTemplate();
