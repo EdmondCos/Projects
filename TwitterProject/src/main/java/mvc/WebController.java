@@ -19,20 +19,20 @@ public class WebController {
     private AccountService accountService;
 
     @GetMapping({""})
-    public String homePage(Model model) {
+    public String loginPage(Model model) {
+        accountService.loadAccountDatabase();
         return "login";
     }
 
-    @GetMapping({"/all"})
-    public String getAccounts(Model model) {
-        model.addAttribute("accounts", getAccountsFromExternalSources());
+    @GetMapping({"home"})
+    public String homePage(Model model) {
         return "userHome";
     }
+
 
     @GetMapping(value = "/delete")
     public String deleteAccount(Model model, @RequestParam("username") String username) {
         accountService.delete(username);
-        model.addAttribute("accounts", getAccountsFromExternalSources());
         return "userHome";
     }
 
@@ -56,9 +56,12 @@ public class WebController {
 
     @GetMapping(value = "/save-account")
     public String saveAccount(Model model, @ModelAttribute Account account) {
-        accountService.createAccount(account);
-        model.addAttribute("accounts", getAccountsFromExternalSources());
-        return "userHome";
+        boolean x = accountService.saveNewAccount(account);
+        if (x) {
+            return "userHome";
+        } else {
+            return "register";
+        }
     }
 
 
@@ -72,4 +75,10 @@ public class WebController {
 
         return accounts;
     }
+
+
+//    TODO:fix hibernate saves only once
+//    TODO:lock pages behind login/access
+//    TODO:edit and delete account from userpage
+
 }

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 @EqualsAndHashCode(of = {"email"})
 public class Account {
 
@@ -18,9 +18,10 @@ public class Account {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "userPassword")
     private String password;
 
-    @Column(unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
 

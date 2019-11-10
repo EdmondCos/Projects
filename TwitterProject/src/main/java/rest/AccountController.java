@@ -24,10 +24,10 @@ public class AccountController {
         return accountService.getAccount(email);
     }
 
-    @PostMapping(value = "", consumes = "application/js", produces = "application/js")
-    public Account createAccount(@RequestBody Account account) {
-        return accountService.createAccount(account);
-    }
+//    @PostMapping(value = "", consumes = "application/js", produces = "application/js")
+//    public Account createAccount(@RequestBody Account account) {
+//        return accountService.saveNewAccount(account);
+//    }
 
     @DeleteMapping(value = "")
     public void deleteAccount(@RequestParam("email") String email) {
