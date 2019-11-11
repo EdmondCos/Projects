@@ -1,29 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-   <meta charset="UTF-8">
-      <script src="/twitter/js/main.js"></script>
+    <meta charset="UTF-8">
+    <link href="/twitter/css/login.css" rel="stylesheet">
+	<script src="/twitter/js/main.js"></script>
 </head>
 <body>
-
-<table>
-    <form action="http://localhost:8080/twitter/login">
-        <tr>
-            <td>Email</td>
-            <td><input type="text" name="email"/></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" name="password"/></td>
-        </tr>
-        <tr>
-            <td><button type="submit"/>Login</td>
-        </tr>
-    </form>
-        <tr>
-            <td><button onclick="register()">Register</button></td>
-        </tr>
-</table>
-
+    <div class="login">
+        <h2>Log In</h2>
+        <form action="http://localhost:8080/twitter/login">
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="password" placeholder="Password" name = "password" required>
+            <input type="submit" value="Log In">
+			<input type="button" onclick="register()" value="Register" />
+        </form>
+    </div>
 </body>
 </html>
