@@ -7,6 +7,7 @@
 </head>
 <body class="title">
    Home Page
+
    <h2 class = "hello">Hello User</h2>
 </body>
 </html>

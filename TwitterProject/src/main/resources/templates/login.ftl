@@ -6,6 +6,7 @@
 	<script src="/twitter/js/main.js"></script>
 </head>
 <body>
+
     <div class="login">
         <h2>Log In</h2>
         <form action="http://localhost:8080/twitter/login">

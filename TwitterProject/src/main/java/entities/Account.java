@@ -13,13 +13,13 @@ import javax.persistence.Table;
 public class Account {
 
     @Id
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
 
 

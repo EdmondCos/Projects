@@ -21,18 +21,17 @@ public class WebAccountController {
     }
 
     @GetMapping(value = "/login")
-    public String login(Model model, @ModelAttribute Account account) {
+    public String login(ModelAndView modelAndView, @ModelAttribute Account account) {
         System.out.println("test " + account.getEmail() + " " + account.getPassword());
-        boolean x = accountService.exisitsAccount(account);
-        if (x) {
+        if (accountService.existsAccount(account)) {
             System.out.println("correct data");
             return "userHome";
         } else {
             System.out.println("bad credentials");
+            modelAndView.addObject("wrongCredentials", "Email or password is incorrect.");
             return "login";
         }
     }
-
 
     @GetMapping(value = "/register")
     public String newAccount(Model model) {
@@ -53,7 +52,7 @@ public class WebAccountController {
                     ("existingUserEmail", "Username is already in use.");
             return "register";
         } else {
-            modelAndView.addObject("regMessage", "Account has been created!");
+            modelAndView.addObject("okMessage", "Account has been created!");
             return "userHome";
         }
     }
@@ -69,8 +68,7 @@ public class WebAccountController {
         return "userHome";
     }
 
-
-//    TODO:fix hibernate saves only once
+//    TODO:print messages according to results
 //    TODO:lock pages behind login/access
 //    TODO:edit and delete account from userpage
 

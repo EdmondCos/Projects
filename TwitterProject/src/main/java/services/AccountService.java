@@ -30,14 +30,9 @@ public class AccountService {
         return true;
     }
 
-    public boolean exisitsAccount(Account account) {
-        Account exisiting;
-        try {
-            exisiting = accountRepository.findByEmail(account.getEmail());
-        } catch (java.util.NoSuchElementException e) {
-            return false;
-        }
-        return exisiting.getPassword().equals(account.getPassword());
+    public boolean existsAccount(Account account) {
+        Account existing = findByEmail(account.getEmail());
+        return existing.getPassword().equals(account.getPassword());
     }
 
     public void delete(String email) {
