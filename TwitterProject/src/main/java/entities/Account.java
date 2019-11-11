@@ -1,7 +1,6 @@
 package entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +10,13 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "accounts")
-@EqualsAndHashCode(of = {"email"})
 public class Account {
 
     @Id
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "userPassword")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "username", unique = true)

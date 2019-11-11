@@ -26,7 +26,7 @@ public class AccountController {
 
 //    @PostMapping(value = "", consumes = "application/js", produces = "application/js")
 //    public Account createAccount(@RequestBody Account account) {
-//        return accountService.saveNewAccount(account);
+//        return accountService.canSaveNewAccount(account);
 //    }
 
     @DeleteMapping(value = "")

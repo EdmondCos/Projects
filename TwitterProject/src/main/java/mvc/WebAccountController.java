@@ -2,26 +2,21 @@ package mvc;
 
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
 
-import java.util.*;
-
 @Controller
 @RequestMapping(value = "")
-public class WebController {
+public class WebAccountController {
 
     @Autowired
     private AccountService accountService;
 
     @GetMapping({""})
     public String loginPage(Model model) {
-        accountService.loadAccountDatabase();
         return "login";
     }
 
@@ -46,22 +41,21 @@ public class WebController {
 
     @GetMapping(value = "/save-account")
     public String saveAccount(ModelAndView modelAndView, @ModelAttribute Account account) {
-        Account existing = accountService.findByEmail(account.getEmail());
+        Account newAccount = accountService.findByEmail(account.getEmail());
 
-        if (existing != null) {
+        if (newAccount != null) {
             modelAndView.addObject("alreadyRegisteredMessage", "There is already a user registered with the email provided.");
-            modelAndView.setViewName("register");
+            return "register";
         }
 
-        if (!accountService.saveNewAccount(account)) {
+        if (!accountService.canSaveNewAccount(account)) {
             modelAndView.addObject
                     ("existingUserEmail", "Username is already in use.");
-            modelAndView.setViewName("register");
+            return "register";
         } else {
             modelAndView.addObject("regMessage", "Account has been created!");
-            modelAndView.setViewName("home");
+            return "userHome";
         }
-        return "userHome";
     }
 
     @GetMapping({"home"})
@@ -73,18 +67,6 @@ public class WebController {
     public String deleteAccount(Model model, @RequestParam("username") String username) {
         accountService.delete(username);
         return "userHome";
-    }
-
-
-    private Set<Account> getAccountsFromExternalSources() {
-        RestTemplate connection = new RestTemplate();
-        String url = "http://localhost:8080/twitter/account/all";
-        ResponseEntity<Account[]> response = connection.getForEntity(url, Account[].class);
-
-        HashSet<Account> accounts = new HashSet<>();
-        Collections.addAll(accounts, Objects.requireNonNull(response.getBody()));
-
-        return accounts;
     }
 
 
