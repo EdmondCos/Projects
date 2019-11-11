@@ -21,7 +21,7 @@ public class AccountController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Account getAccount(@RequestParam(name = "email") String email) {
-        return accountService.getAccount(email);
+        return accountService.findByEmail(email);
     }
 
 //    @PostMapping(value = "", consumes = "application/js", produces = "application/js")

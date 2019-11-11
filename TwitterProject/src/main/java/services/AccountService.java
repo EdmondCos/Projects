@@ -19,32 +19,22 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-
-    public Set<Account> getAllAccounts() {
-        Set<Account> results = new HashSet<>();
-        for (Account account : accountRepository.findAll()) {
-            results.add(account);
+    public Account findByEmail(String email) {
+        try {
+            return accountRepository.findById(email).get();
+        } catch (java.util.NoSuchElementException e) {
+            return new Account();
         }
-        return results;
-    }
-
-    public Account getAccount(String email) {
-        return accountRepository.findById(email).get();
     }
 
     public boolean saveNewAccount(Account account) {
         try {
-            accountRepository.findById(account.getEmail()).get();
-        } catch (java.util.NoSuchElementException e) {
-            try {
-                accountRepository.save(account);
-            } catch (Exception ex) {
-                return false;
-            }
-            modifyDatabase(account, true);
-            return true;
+            accountRepository.save(account);
+        } catch (Exception e) {
+            return false;
         }
-        return false;
+        modifyDatabase(account, true);
+        return true;
     }
 
     public boolean exisitsAccount(Account account) {
@@ -62,6 +52,14 @@ public class AccountService {
         accountRepository.deleteById(email);
     }
 
+    public Set<Account> getAllAccounts() {
+        Set<Account> results = new HashSet<>();
+        for (Account account : accountRepository.findAll()) {
+            results.add(account);
+        }
+        return results;
+    }
+
     public void loadAccountDatabase() {
         List<Account> results = new ArrayList<>();
         try {
@@ -73,8 +71,6 @@ public class AccountService {
             criteria.from(Account.class);
             results = session.createQuery(criteria).getResultList();
 
-//            results = session.createQuery("SELECT accounts FROM accounts", Account.class).getResultList();
-
         } catch (Exception ignored) {
         }
 
@@ -82,6 +78,7 @@ public class AccountService {
             accountRepository.save(account);
         }
     }
+
 
     private void modifyDatabase(Account account, boolean bol) {
         Transaction transaction = null;
@@ -92,7 +89,7 @@ public class AccountService {
             transaction = session.beginTransaction();
 
             if (bol) {
-                session.saveOrUpdate(account);
+                session.save(account);
             } else {
                 session.delete(account);
             }
@@ -105,5 +102,6 @@ public class AccountService {
             e.printStackTrace();
         }
     }
+
 
 }

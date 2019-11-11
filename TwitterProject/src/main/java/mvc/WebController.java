@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
 
 import java.util.*;
@@ -24,18 +25,6 @@ public class WebController {
         return "login";
     }
 
-    @GetMapping({"home"})
-    public String homePage(Model model) {
-        return "userHome";
-    }
-
-
-    @GetMapping(value = "/delete")
-    public String deleteAccount(Model model, @RequestParam("username") String username) {
-        accountService.delete(username);
-        return "userHome";
-    }
-
     @GetMapping(value = "/login")
     public String login(Model model, @ModelAttribute Account account) {
         System.out.println("test " + account.getEmail() + " " + account.getPassword());
@@ -49,19 +38,41 @@ public class WebController {
         }
     }
 
+
     @GetMapping(value = "/register")
     public String newAccount(Model model) {
         return "register";
     }
 
     @GetMapping(value = "/save-account")
-    public String saveAccount(Model model, @ModelAttribute Account account) {
-        boolean x = accountService.saveNewAccount(account);
-        if (x) {
-            return "userHome";
-        } else {
-            return "register";
+    public String saveAccount(ModelAndView modelAndView, @ModelAttribute Account account) {
+        Account existing = accountService.findByEmail(account.getEmail());
+
+        if (existing != null) {
+            modelAndView.addObject("alreadyRegisteredMessage", "There is already a user registered with the email provided.");
+            modelAndView.setViewName("register");
         }
+
+        if (!accountService.saveNewAccount(account)) {
+            modelAndView.addObject
+                    ("existingUserEmail", "Username is already in use.");
+            modelAndView.setViewName("register");
+        } else {
+            modelAndView.addObject("regMessage", "Account has been created!");
+            modelAndView.setViewName("home");
+        }
+        return "userHome";
+    }
+
+    @GetMapping({"home"})
+    public String homePage(Model model) {
+        return "userHome";
+    }
+
+    @GetMapping(value = "/delete")
+    public String deleteAccount(Model model, @RequestParam("username") String username) {
+        accountService.delete(username);
+        return "userHome";
     }
 
 
