@@ -14,10 +14,6 @@ body{
     margin-top: 100px;
 }
 
-h2{
-    text-align: center;
-}
-
 input[type=text], input[type=password], input[type=email]{
     width: 100%;
     box-sizing: border-box;

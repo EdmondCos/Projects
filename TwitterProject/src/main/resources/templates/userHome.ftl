@@ -3,14 +3,16 @@
 <head>
    <meta charset="UTF-8">
    <link href="/twitter/css/userHome.css" rel="stylesheet">
-   <script src="/twitter/js/main.js"></script>
 </head>
 <body class="title">
-   Home Page
 
-   <h2 class = "hello">Hello User</h2>
-
-
+	<div class = "message"
+		<h2>Hello User</h2>
+		<form action="http://localhost:8080/twitter/save-message" method="post">
+            <textarea id = "myTextarea" rows = "100" name="text" placeholder="What are you thinking about?"></textarea>
+            <input type="submit" value="Post">
+        </form>
+	</div>
 
 </body>
 </html>

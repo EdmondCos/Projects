@@ -4,6 +4,7 @@
    <meta charset="UTF-8">
    <link href="/twitter/css/register.css" rel="stylesheet">
 </head>
+
 <body>
 	<div class = "register">
 		<form action="http://localhost:8080/twitter/save-account" method="post">

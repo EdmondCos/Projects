@@ -16,13 +16,20 @@ public class Message {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "text")
+    @Column(name = "message")
     private String text;
 
-    @Column(name = "post date")
-    private LocalDateTime dateTime;
+    @Column(name = "postdate")
+    private String dateTime;
 
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;
+
+    public void setDateTime(LocalDateTime date) {
+        String dateTime = date.toString();
+        dateTime = dateTime.replace("T", " ").substring(0, dateTime.length() - 7);
+
+        this.dateTime = dateTime;
+    }
 }
