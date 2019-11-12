@@ -5,14 +5,39 @@ import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class AccountService {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
+
+    public Account findByEmail(String email) {
+        try {
+            return accountRepository.findByEmail(email);
+        } catch (java.util.NoSuchElementException e) {
+            return new Account();
+        }
+    }
+
+    public boolean canSaveNewAccount(Account account) {
+        try {
+            accountRepository.save(account);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean existsAccount(Account account) {
+        Account existing = findByEmail(account.getEmail());
+        return existing.getPassword().equals(account.getPassword());
+    }
+
+    public void delete(String email) {
+        accountRepository.deleteById(email);
+    }
 
     public Set<Account> getAllAccounts() {
         Set<Account> results = new HashSet<>();
@@ -22,17 +47,5 @@ public class AccountService {
         return results;
     }
 
-    public Account getAccount(String username) {
-        return accountRepository.findById(username).get();
-    }
-
-    public Account createAccount(Account account) {
-        accountRepository.save(account);
-        return account;
-    }
-
-    public void delete(String username) {
-        accountRepository.deleteById(username);
-    }
 
 }

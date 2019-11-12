@@ -1,26 +1,27 @@
 package entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "account")
-@EqualsAndHashCode(of = {"username"})
+@Table(name = "accounts")
 public class Account {
 
     @Id
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "username")
     private String username;
 
-    private String password;
+    @OneToMany(mappedBy = "account")
+    private List<Message> messages;
 
-    @Column(unique = true, nullable = false)
-    private String email;
 
 }
