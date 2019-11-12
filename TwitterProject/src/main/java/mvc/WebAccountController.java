@@ -3,7 +3,6 @@ package mvc;
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
@@ -15,61 +14,71 @@ public class WebAccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping({""})
-    public String loginPage(Model model) {
-        return "login";
+    @GetMapping(value = "")
+    public ModelAndView loginPage(ModelAndView model) {
+        model.setViewName("loginPage");
+        return model;
     }
 
-    @GetMapping(value = "/login")
-    public String login(ModelAndView modelAndView, @ModelAttribute Account account) {
+    @PostMapping(value = "/login-form")
+    public ModelAndView loginForm(ModelAndView model, @ModelAttribute Account account) {
         System.out.println("test " + account.getEmail() + " " + account.getPassword());
         if (accountService.existsAccount(account)) {
             System.out.println("correct data");
-            return "userHome";
+            model.addObject("name", account.getUsername());
+            model.setViewName("userHome");
+            return model;
         } else {
             System.out.println("bad credentials");
-            modelAndView.addObject("wrongCredentials", "Email or password is incorrect.");
-            return "login";
+            model.addObject("wrongCredentials", "Email or password is incorrect.");
+            model.setViewName("loginPage");
+            return model;
         }
     }
 
     @GetMapping(value = "/register")
-    public String newAccount(Model model) {
-        return "register";
+    public ModelAndView newAccount(ModelAndView model) {
+        model.setViewName("register");
+        return model;
     }
 
-    @GetMapping(value = "/save-account")
-    public String saveAccount(ModelAndView modelAndView, @ModelAttribute Account account) {
+    @PostMapping(value = "/save-account")
+    public ModelAndView saveAccount(ModelAndView model, @ModelAttribute Account account) {
         Account newAccount = accountService.findByEmail(account.getEmail());
 
         if (newAccount != null) {
-            modelAndView.addObject("alreadyRegisteredMessage", "There is already a user registered with the email provided.");
-            return "register";
+            model.addObject("alreadyRegisteredMessage", "There is already a user registered with the email provided.");
+            model.setViewName("register");
+            return model;
         }
 
         if (!accountService.canSaveNewAccount(account)) {
-            modelAndView.addObject
+            model.addObject
                     ("existingUserEmail", "Username is already in use.");
-            return "register";
+            model.setViewName("register");
+            return model;
         } else {
-            modelAndView.addObject("okMessage", "Account has been created!");
-            return "userHome";
+            model.addObject("okMessage", "Account has been created!");
+            model.setViewName("userHome");
+            return model;
         }
     }
 
     @GetMapping({"home"})
-    public String homePage(Model model) {
-        return "userHome";
+    public ModelAndView homePage(ModelAndView model) {
+        model.setViewName("userHome");
+        return model;
     }
 
-    @GetMapping(value = "/delete")
-    public String deleteAccount(Model model, @RequestParam("username") String username) {
-        accountService.delete(username);
-        return "userHome";
+    @DeleteMapping(value = "/delete")
+    public ModelAndView deleteAccount(ModelAndView model, @RequestParam("email") String email) {
+        accountService.delete(email);
+        model.setViewName("userHome");
+        return model;
     }
 
 //    TODO:print messages according to results
-//    TODO:lock pages behind login/access
+//    TODO:lock pages behind loginPage/access
 //    TODO:edit and delete account from userpage
 
 }
