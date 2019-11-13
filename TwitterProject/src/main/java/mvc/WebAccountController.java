@@ -15,19 +15,6 @@ public class WebAccountController {
     private AccountService accountService;
 
 
-
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView getData() {
-        ModelAndView model =new ModelAndView();
-        model.addObject("name", "Jack");
-        model.setViewName("userHome");
-        return model;
-    }
-
-
-
-
     @GetMapping(value = "")
     public ModelAndView loginPage(ModelAndView model) {
         model.setViewName("loginPage");
@@ -37,14 +24,24 @@ public class WebAccountController {
     @PostMapping(value = "/login-form")
     public ModelAndView loginForm(ModelAndView model, @ModelAttribute Account account) {
         System.out.println("test " + account.getEmail() + " " + account.getPassword());
-        if (accountService.existsAccount(account)) {
-            System.out.println("correct data");
-            model.addObject("name", account.getUsername());
-            model.setViewName("userHome");
-            return model;
+        Account existing = accountService.findAccountByEmail(account.getEmail());
+
+        if (existing != null) {
+            if (accountService.validPassord(account, existing)) {
+                System.out.println("correct data");
+                model.addObject("name", existing.getUsername());
+                model.setViewName("userHome");
+                return model;
+            } else {
+                System.out.println("bad credentials");
+                model.addObject("wrongCredentials", "Email or password is incorrect.");
+                model.setViewName("loginPage");
+                return model;
+            }
+
         } else {
-            System.out.println("bad credentials");
-            model.addObject("wrongCredentials", "Email or password is incorrect.");
+            System.out.println("no account");
+            model.addObject("noAccount", "No account with this email exists");
             model.setViewName("loginPage");
             return model;
         }
@@ -58,7 +55,7 @@ public class WebAccountController {
 
     @PostMapping(value = "/save-account")
     public ModelAndView saveAccount(ModelAndView model, @ModelAttribute Account account) {
-        Account newAccount = accountService.findByEmail(account.getEmail());
+        Account newAccount = accountService.findAccountByEmail(account.getEmail());
 
         if (newAccount != null) {
             model.addObject("alreadyRegisteredMessage", "There is already a user registered with the email provided.");
@@ -67,12 +64,12 @@ public class WebAccountController {
         }
 
         if (!accountService.canSaveNewAccount(account)) {
-            model.addObject
-                    ("existingUserEmail", "Username is already in use.");
+            model.addObject("existingUserEmail", "Username is already in use.");
             model.setViewName("register");
             return model;
         } else {
             model.addObject("okMessage", "Account has been created!");
+            model.addObject("name", account.getUsername());
             model.setViewName("userHome");
             return model;
         }

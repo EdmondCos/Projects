@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <link href="/twitter/css/login.css" rel="stylesheet">
-	<script src="/twitter/js/main.js"></script>
+
+	<script type="text/javascript">
+        function register(){
+            window.open("http://localhost:8080/twitter/register", "_self");
+        }
+    </script>
+
 </head>
 <body>
 
     <div class="login">
         <h2>Log In</h2>
+	    <div>${wrongCredentials!""}</div>
+	    <div>${noAccount!""}</div>
         <form action="http://localhost:8080/twitter/login-form" method="post">
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Password" name = "password" required>

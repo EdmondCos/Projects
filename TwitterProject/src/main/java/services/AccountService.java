@@ -13,7 +13,7 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public Account findByEmail(String email) {
+    public Account findAccountByEmail(String email) {
         try {
             return accountRepository.findByEmail(email);
         } catch (java.util.NoSuchElementException e) {
@@ -30,9 +30,8 @@ public class AccountService {
         return true;
     }
 
-    public boolean existsAccount(Account account) {
-        Account existing = findByEmail(account.getEmail());
-        return existing.getPassword().equals(account.getPassword());
+    public boolean validPassord(Account account, Account databaseAccount) {
+        return databaseAccount.getPassword().equals(account.getPassword());
     }
 
     public void delete(String email) {
@@ -47,5 +46,7 @@ public class AccountService {
         return results;
     }
 
+//    TODO: add edit user page
+//    TODO: add delete button
 
 }

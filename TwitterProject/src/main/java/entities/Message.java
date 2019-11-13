@@ -20,16 +20,16 @@ public class Message {
     private String text;
 
     @Column(name = "postdate")
-    private String dateTime;
+    private String posting;
 
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;
 
-    public void setDateTime(LocalDateTime date) {
+    public void setPosting(LocalDateTime date) {
         String dateTime = date.toString();
         dateTime = dateTime.replace("T", " ").substring(0, dateTime.length() - 7);
 
-        this.dateTime = dateTime;
+        this.posting = dateTime;
     }
 }
