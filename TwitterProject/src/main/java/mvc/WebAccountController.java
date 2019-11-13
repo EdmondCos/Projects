@@ -14,6 +14,20 @@ public class WebAccountController {
     @Autowired
     private AccountService accountService;
 
+
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView getData() {
+        ModelAndView model =new ModelAndView();
+        model.addObject("name", "Jack");
+        model.setViewName("userHome");
+        return model;
+    }
+
+
+
+
     @GetMapping(value = "")
     public ModelAndView loginPage(ModelAndView model) {
         model.setViewName("loginPage");
