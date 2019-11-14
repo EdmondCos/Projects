@@ -21,6 +21,14 @@ public class AccountService {
         }
     }
 
+    public Account findAccountByUsername(String username) {
+        try {
+            return accountRepository.findByUsername(username);
+        } catch (java.util.NoSuchElementException e) {
+            return new Account();
+        }
+    }
+
     public boolean canSaveNewAccount(Account account) {
         try {
             accountRepository.save(account);

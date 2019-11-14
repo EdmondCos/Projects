@@ -1,6 +1,8 @@
 package entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "messages")
+@EqualsAndHashCode(exclude = "account")
+@ToString(exclude = "account")
 public class Message {
 
     @Id
@@ -26,10 +30,12 @@ public class Message {
     @JoinColumn(name = "username")
     private Account account;
 
-    public void setPosting(LocalDateTime date) {
-        String dateTime = date.toString();
+
+    public void defineDate() {
+        String dateTime = LocalDateTime.now().toString();
         dateTime = dateTime.replace("T", " ").substring(0, dateTime.length() - 7);
 
         this.posting = dateTime;
     }
+
 }

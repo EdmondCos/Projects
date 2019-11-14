@@ -1,11 +1,14 @@
 package mvc;
 
+import dao.MessageRepository;
 import entities.Account;
+import entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
+import services.MessageService;
 
 @Controller
 @RequestMapping(value = "")
@@ -13,11 +16,21 @@ public class WebAccountController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MessageService messageService;
 
 
     @GetMapping(value = "")
     public ModelAndView loginPage(ModelAndView model) {
         model.setViewName("loginPage");
+        return model;
+    }
+
+    @GetMapping({"home"})
+    public ModelAndView homePage(ModelAndView model) {
+        System.out.println(messageService.getAllMessages().size());
+        System.out.println(messageService.getAllMessages().get(0));
+        model.setViewName("userHome");
         return model;
     }
 
@@ -75,11 +88,6 @@ public class WebAccountController {
         }
     }
 
-    @GetMapping({"home"})
-    public ModelAndView homePage(ModelAndView model) {
-        model.setViewName("userHome");
-        return model;
-    }
 
     @DeleteMapping(value = "/delete")
     public ModelAndView deleteAccount(ModelAndView model, @RequestParam("email") String email) {
