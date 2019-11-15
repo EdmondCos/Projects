@@ -8,12 +8,17 @@ import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
 import services.MessageService;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "")
 public class WebAccountController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private MessageService messageService;
 
     @GetMapping(value = "")
     public ModelAndView loginPage(ModelAndView model) {
@@ -24,25 +29,22 @@ public class WebAccountController {
     @GetMapping({"home"})
     public ModelAndView homePage(ModelAndView model) {
         model.setViewName("userHome");
-
-        for (Account account : accountService.getAllAccounts()) {
-            System.out.println(account.getMessages().get(0).getText());
-            System.out.println(account.getMessages().get(0).getUsername());
-            System.out.println(account.getMessages().get(0).getPosting());
-        }
-
         return model;
     }
 
     @PostMapping(value = "/login-form")
     public ModelAndView loginForm(ModelAndView model, @ModelAttribute Account account) {
-        System.out.println("test " + account.getEmail() + " " + account.getPassword());
         Account existing = accountService.findAccountByEmail(account.getEmail());
+
+        List x = messageService.getMessagesOfUser("unu");
+        System.out.println(x.size());
+        System.out.println(x);
 
         if (existing != null) {
             if (accountService.validPassord(account, existing)) {
-                System.out.println("correct data");
+                System.out.println("correct data " + existing.getUsername());
                 model.addObject("name", existing.getUsername());
+                model.addObject("messages", messageService.getMessagesOfUser(existing.getUsername()));
                 model.setViewName("userHome");
                 return model;
             } else {
@@ -81,6 +83,7 @@ public class WebAccountController {
             model.setViewName("register");
             return model;
         } else {
+            model.addObject("messages", messageService.getMessagesOfUser(account.getUsername()));
             model.addObject("okMessage", "Account has been created!");
             model.addObject("name", account.getUsername());
             model.setViewName("userHome");
@@ -96,8 +99,8 @@ public class WebAccountController {
         return model;
     }
 
-//    TODO:print messages according to results
 //    TODO:lock pages behind loginPage/access
-//    TODO:edit and delete account from userpage
+//    TODO:edit user details
+//    TODO:delete account
 
 }

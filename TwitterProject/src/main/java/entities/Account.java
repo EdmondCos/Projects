@@ -1,8 +1,6 @@
 package entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,8 +8,6 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "accounts")
-@EqualsAndHashCode(exclude = "messages")
-@ToString(exclude = "messages")
 public class Account {
 
     @Id
@@ -25,6 +21,7 @@ public class Account {
     private String username;
 
     @OneToMany
+    @JoinColumn(name = "message")
     private List<Message> messages;
 
 

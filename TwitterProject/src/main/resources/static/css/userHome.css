@@ -14,9 +14,18 @@ body{
     margin-top: 50px;
 }
 
-
-h2{
-	text-align:left;
+.messageList{
+	width: 50%;
+	border-radius: 20px;
+	margin: auto;
+	background: rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
+	padding: 20px 50px;
+	background: rgba(0, 0, 0, 0.8);
+	margin-top: 15px;
+	line-height: 20px;
+	color:white;
+	word-wrap: break-word;
 }
 
 

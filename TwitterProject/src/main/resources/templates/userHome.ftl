@@ -5,11 +5,11 @@
     <link href="/twitter/css/userHome.css" rel="stylesheet">
 
   	<script type="text/javascript">
-  	    var name = '${name!"User"}' ;
+  	    var name = '${name!"Admin"}' ;
 
         function setName() {
             document.getElementById("userId").innerText = "Hello " + name + "!" ;
-            document.getElementById("xxx").innerText = name ;
+            document.getElementById("writer").innerText = name ;
         }
 
     </script>
@@ -27,9 +27,13 @@
         </form>
 	</div>
 
+    <#list messages as message>
 	<div class = "messageList">
-	    <div id="xxx"> a </div>
+	    <div id=${message.username!"Admin"}></div>
+	    <div>${message.posting!"N/A"}</div>
+	    <div>${message.text!"You haven't posted anything"}</div>
 	</div>
+	</#list>
 
 </body>
 </html>

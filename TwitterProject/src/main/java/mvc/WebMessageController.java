@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import services.AccountService;
 import services.MessageService;
 
 @Controller
@@ -22,8 +21,13 @@ public class WebMessageController {
         message.defineDate();
         messageService.saveMessage(message);
 
+        model.addObject("messages", messageService.getMessagesOfUser(message.getUsername()));
         model.setViewName("userHome");
         return model;
     }
+
+//    TODO: Delete Messages
+//    TODO: Edit Messages
+//    TODO: Reply Messages
 
 }
