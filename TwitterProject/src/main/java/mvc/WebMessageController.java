@@ -1,7 +1,5 @@
 package mvc;
 
-import dao.AccountRepository;
-import entities.Account;
 import entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +16,9 @@ public class WebMessageController {
 
     @Autowired
     private MessageService messageService;
-    @Autowired
-    private AccountService accountService;
 
     @PostMapping(value = "save-message")
     public ModelAndView saveMessage(ModelAndView model, @ModelAttribute Message message) {
-        Account account = accountService.findAccountByUsername(message.getPosting());
-        System.out.println(account.getUsername() + " " + account.getEmail() + " " + account.getPassword());
-        message.setAccount(account);
-
         message.defineDate();
         messageService.saveMessage(message);
 

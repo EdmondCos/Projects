@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "messages")
-@EqualsAndHashCode(exclude = "account")
-@ToString(exclude = "account")
 public class Message {
 
     @Id
@@ -26,9 +24,8 @@ public class Message {
     @Column(name = "postdate")
     private String posting;
 
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private Account account;
+    @Column(name = "username")
+    private String username;
 
 
     public void defineDate() {

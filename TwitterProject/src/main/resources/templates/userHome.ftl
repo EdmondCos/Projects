@@ -9,7 +9,7 @@
 
         function setName() {
             document.getElementById("userId").innerText = "Hello " + name + "!" ;
-            document.getElementById("piu").innerText = name ;
+            document.getElementById("xxx").innerText = name ;
         }
 
     </script>
@@ -22,13 +22,13 @@
 	    <div id="userId">Hello ${name!"User"}!</div>
 		<form action="http://localhost:8080/twitter/save-message" method="post">
             <textarea id = "myTextarea" rows = "100" name="text" placeholder="What are you thinking about?"></textarea>
-            <input type="hidden" name="posting" value='${name!"admin"}'>
+            <input type="hidden" name="username" value='${name!"admin"}'>
             <input type="submit" value="Post">
         </form>
 	</div>
 
 	<div class = "messageList">
-	    <div id="piu"> a </div>
+	    <div id="xxx"> a </div>
 	</div>
 
 </body>

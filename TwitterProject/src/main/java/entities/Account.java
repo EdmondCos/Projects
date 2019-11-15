@@ -24,7 +24,7 @@ public class Account {
     @Column(name = "username")
     private String username;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany
     private List<Message> messages;
 
 
