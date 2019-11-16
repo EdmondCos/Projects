@@ -8,9 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.AccountService;
 import services.MessageService;
 
-import java.util.LinkedList;
-import java.util.List;
-
 @Controller
 @RequestMapping(value = "")
 public class WebAccountController {
@@ -36,12 +33,12 @@ public class WebAccountController {
     public ModelAndView loginForm(ModelAndView model, @ModelAttribute Account account) {
         Account existing = accountService.findAccountByEmail(account.getEmail());
 
-        List x = messageService.getMessagesOfUser("unu");
-        System.out.println(x.size());
-        System.out.println(x);
+//        List x = messageService.getMessagesOfUser("unu");
+//        System.out.println(x.size());
+//        System.out.println(x);
 
         if (existing != null) {
-            if (accountService.validPassord(account, existing)) {
+            if (accountService.validPassword(account, existing)) {
                 System.out.println("correct data " + existing.getUsername());
                 model.addObject("name", existing.getUsername());
                 model.addObject("messages", messageService.getMessagesOfUser(existing.getUsername()));

@@ -38,7 +38,7 @@ public class AccountService {
         return true;
     }
 
-    public boolean validPassord(Account account, Account databaseAccount) {
+    public boolean validPassword(Account account, Account databaseAccount) {
         return databaseAccount.getPassword().equals(account.getPassword());
     }
 
