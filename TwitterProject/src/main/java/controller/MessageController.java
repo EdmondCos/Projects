@@ -1,4 +1,4 @@
-package mvc;
+package controller;
 
 import entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +11,16 @@ import services.MessageService;
 
 @Controller
 @RequestMapping(value = "")
-public class WebMessageController {
+public class MessageController {
 
     @Autowired
     private MessageService messageService;
 
     @PostMapping(value = "save-message")
     public ModelAndView saveMessage(ModelAndView model, @ModelAttribute Message message) {
-        message.defineDate();
         messageService.saveMessage(message);
+        model = messageService.getMessagesOfUser(model, message.getUsername());
 
-        model.addObject("messages", messageService.getMessagesOfUser(message.getUsername()));
-        model.setViewName("userHome");
         return model;
     }
 

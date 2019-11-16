@@ -16,8 +16,7 @@
     <div class="login">
         <h2>Log In</h2>
 	    <div>${wrongCredentials!""}</div>
-	    <div>${noAccount!""}</div>
-        <form action="http://localhost:8080/twitter/login-form" method="post">
+        <form action="http://localhost:8080/twitter/login" method="post">
             <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Password" name = "password" required>
             <input type="submit" value="Log In">

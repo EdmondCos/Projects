@@ -17,15 +17,12 @@ import java.util.List;
 public class Account implements UserDetails {
 
     @Id
-    @NotEmpty
     @Column(name = "email")
     private String email;
 
-    @NotEmpty
     @Column(name = "password")
     private String password;
 
-    @NotEmpty
     @Column(name = "username")
     private String username;
 
