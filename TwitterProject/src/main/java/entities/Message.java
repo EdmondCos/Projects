@@ -24,7 +24,6 @@ public class Message {
     @Column(name = "username")
     private String username;
 
-
     public void defineDate() {
         String dateTime = LocalDateTime.now().toString();
         dateTime = dateTime.replace("T", " ").substring(0, dateTime.length() - 7);

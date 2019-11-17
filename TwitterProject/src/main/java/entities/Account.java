@@ -29,9 +29,6 @@ public class Account implements UserDetails {
     @OneToMany
     private List<Message> messages;
 
-    @ManyToMany
-    private Set<Roles> roles;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("USER"));
