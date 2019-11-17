@@ -13,7 +13,7 @@
 		    <input type="email" placeholder="Email" name="email" required>
             <input type="password" placeholder="Password" name="password" required>
             <input type="submit" value="Register">
-		<form>
+		</form>
 	</div>
 </body>
 </html>

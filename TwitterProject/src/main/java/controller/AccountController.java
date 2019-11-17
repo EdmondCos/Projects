@@ -1,6 +1,6 @@
 package controller;
 
-
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +26,12 @@ public class AccountController {
     @PostMapping("/login")
     public ModelAndView login(@ModelAttribute Account account, HttpServletRequest request, ModelAndView model) {
         model = authenticationService.login(model, request, account);
+        return model;
+    }
+
+    @DeleteMapping("home/delete")
+    public ModelAndView deleteAccount(ModelAndView model) {
+        model.setViewName("loginPage");
         return model;
     }
 

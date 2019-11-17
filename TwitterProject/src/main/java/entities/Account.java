@@ -6,10 +6,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,6 +28,9 @@ public class Account implements UserDetails {
 
     @OneToMany
     private List<Message> messages;
+
+    @ManyToMany
+    private Set<Roles> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
