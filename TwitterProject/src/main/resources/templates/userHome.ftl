@@ -11,7 +11,7 @@
 		}
 
 		function editPage(){
-			window.open("http://localhost:8080/twitter/userEditPage", "_self");
+			window.open("http://localhost:8080/twitter/home/editUser", "_self");
 		}
 	</script>
 
@@ -23,8 +23,9 @@
 	<tr>
 		<th>Hello ${name!"N/A"}!</th>
 		<th id="editDetails">
-			<form action="http://google.com">
-				<input id="search" type="text" name="account" placeholder="Search accounts "/>
+			<form action="http://localhost:8080/twitter/search" method="post">
+				<input id="search" type="text" name="keyword" placeholder="Search accounts "/>
+				<input type="hidden" name="username" value="${name!"N/A"}"/>
 				<input id="button" type="button" onclick="editPage()" value="Account Settings"/>
 			</form>
 		</th>
@@ -42,9 +43,9 @@
 
 <#list messages as message>
 	<div class = "messageList">
-		<div>${message.username!"N/A"}</div>
-		<div>${message.posting!"N/A"}</div>
-		<div>${message.text!"You haven't posted anything"}</div>
+		<div>${message.username}</div>
+		<div>${message.posting}</div>
+		<div>${message.text}</div>
 	</div>
 </#list>
 

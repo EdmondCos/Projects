@@ -3,24 +3,14 @@ package services;
 import dao.AccountRepository;
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ConcurrentModificationException;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
-import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Service
 public class AuthenticationService {
@@ -31,8 +21,10 @@ public class AuthenticationService {
     private AccountRepository accountRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+
 
     public ModelAndView register(ModelAndView model, Account account) {
         String attributeValue = isValidForRegistration(account);
@@ -52,12 +44,13 @@ public class AuthenticationService {
 
     public ModelAndView login(ModelAndView model, HttpServletRequest request, Account account) {
         String attributeValue = isValidLogin(account);
+
         if (attributeValue.equals("")) {
-//            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(account.getEmail(), account.getPassword());
-//            Authentication authentication = authenticationManager.authenticate(token);
+
+//            UsernamePasswordAuthenticationToken createToken = new UsernamePasswordAuthenticationToken(account.getEmail(), account.getPassword());
+//            Authentication authentication = authenticationManager.authenticate(createToken);
 //            SecurityContext context = SecurityContextHolder.getContext();
 //            context.setAuthentication(authentication);
-//
 //            HttpSession sesssion = request.getSession(true);
 //            sesssion.setAttribute(SPRING_SECURITY_CONTEXT_KEY, context);
 
@@ -98,19 +91,4 @@ public class AuthenticationService {
         return "";
     }
 
-
-    public void delete(String email) {
-        accountRepository.deleteById(email);
-    }
-
-    public Set<Account> getAllAccounts() {
-        Set<Account> results = new HashSet<>();
-        for (Account account : accountRepository.findAll()) {
-            results.add(account);
-        }
-        return results;
-    }
-
-//    TODO: add edit user page
-//    TODO: add delete button
 }

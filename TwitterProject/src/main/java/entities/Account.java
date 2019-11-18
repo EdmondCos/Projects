@@ -17,17 +17,20 @@ import java.util.Set;
 public class Account implements UserDetails {
 
     @Id
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @OneToMany
     private List<Message> messages;
+
+    @ManyToMany
+    private Set<Account> followed;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

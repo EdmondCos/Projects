@@ -133,6 +133,13 @@
             <version>1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.10.6</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -14,17 +14,22 @@ public class PortalController {
         return model;
     }
 
-    @GetMapping({"/home"})
-    public ModelAndView homepage(ModelAndView model) {
-        model.setViewName("userHome");
-        return model;
-    }
-
     @GetMapping(value = "/register")
     public ModelAndView register(ModelAndView model) {
         model.setViewName("register");
         return model;
     }
 
+    @GetMapping({"/home"})
+    public ModelAndView homepage(ModelAndView model) {
+        model.setViewName("userHome");
+        return model;
+    }
+
+    @GetMapping(value = "/edit-user")
+    public ModelAndView editUser(ModelAndView model) {
+        model.setViewName("userEditPage");
+        return model;
+    }
 
 }
