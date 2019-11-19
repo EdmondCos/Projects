@@ -1,0 +1,12 @@
+body{
+    background-color: cadetblue;
+    background-size: cover;
+}
+
+.results{
+    margin: 5%;
+}
+
+h2{
+   text-align: center;
+}

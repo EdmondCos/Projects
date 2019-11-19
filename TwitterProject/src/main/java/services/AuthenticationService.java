@@ -29,7 +29,8 @@ public class AuthenticationService {
     public ModelAndView register(ModelAndView model, Account account) {
         String attributeValue = isValidForRegistration(account);
         if (attributeValue.equals("")) {
-            account.setPassword(passwordEncoder.encode(account.getPassword()));
+//            must add passwordEncoder.encode()
+            account.setPassword(account.getPassword());
             account.setMessages(new LinkedList<>());
             accountRepository.save(account);
             model.addObject("name", account.getUsername());
@@ -84,7 +85,7 @@ public class AuthenticationService {
         if (existing == null) {
             return "Email is incorrect.";
         }
-        //Checks received password equals with stored one ---- must add password encoder
+        //Checks received password equals with stored one ---- must add passwordEncoder.encode()
         else if (!account.getPassword().equals(existing.getPassword())) {
             return "Password is incorrect.";
         }

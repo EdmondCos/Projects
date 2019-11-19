@@ -1,7 +1,7 @@
 package controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import entities.Account;
+import entities.Follower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,6 @@ public class AccountController {
 
     @PostMapping("/login")
     public ModelAndView login(@ModelAttribute Account account, HttpServletRequest request, ModelAndView model) {
-        System.out.println(account.getEmail());
         model = authenticationService.login(model, request, account);
         return model;
     }
@@ -42,8 +41,13 @@ public class AccountController {
 
     @PostMapping("/search")
     public ModelAndView searchAccounts(ModelAndView model, String username, String keyword) {
-        System.out.println("User: " + username + " Keyword: " + keyword);
         model = accountService.searchAccounts(model, username, keyword);
+        return model;
+    }
+
+    @PostMapping("/following")
+    public ModelAndView updateFollowers(@ModelAttribute Follower follower, ModelAndView model, String username) {
+        model = accountService.updateFollowers(model, username, follower);
         return model;
     }
 

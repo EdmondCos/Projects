@@ -32,25 +32,30 @@ public class MessageService {
 
     public ModelAndView getMessagesOfUser(ModelAndView model, String username) {
         List<Message> userMessages = getAllMessagesReversed();
-        List<Message> toRemove = new LinkedList<>();
+        List<Message> toKeep = new LinkedList<>();
+        Account account = accountRepository.findByUsername(username);
 
         for (Message message : userMessages) {
-            if (!message.getUsername().equals(username)) {
-                toRemove.add(message);
+            Account messageOwner = accountRepository.findByUsername(message.getUsername());
+            if (message.getUsername().equals(username) || account.getFollowers().contains(messageOwner)) {
+                toKeep.add(message);
             }
         }
-        userMessages.removeAll(toRemove);
 
-        System.out.println(username);
-        System.out.println(userMessages);
-        model.addObject("messages", userMessages);
+        model.addObject("messages", toKeep);
         model.addObject("name", username);
         model.setViewName("userHome");
         return model;
     }
 
-    public void deleteMessage(Message message) {
-        messageRepository.delete(message);
+    public ModelAndView deleteMessage(ModelAndView model, Message message, String username) {
+        if (message.getUsername().equals(username)) {
+            messageRepository.delete(message);
+            return getMessagesOfUser(model, username);
+        } else {
+            model.addObject("deleteError", "You can only delete your texts");
+            return getMessagesOfUser(model, username);
+        }
     }
 
     private List<Message> getAllMessagesReversed() {

@@ -30,7 +30,7 @@ public class Account implements UserDetails {
     private List<Message> messages;
 
     @ManyToMany
-    private Set<Account> followed;
+    private Set<Account> followers;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
