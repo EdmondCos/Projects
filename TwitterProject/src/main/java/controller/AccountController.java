@@ -33,11 +33,6 @@ public class AccountController {
         return model;
     }
 
-    @DeleteMapping("/delete")
-    public ModelAndView deleteAccount(ModelAndView model) {
-        model.setViewName("loginPage");
-        return model;
-    }
 
     @PostMapping("/search")
     public ModelAndView searchAccounts(ModelAndView model, String username, String keyword) {
@@ -50,10 +45,4 @@ public class AccountController {
         model = accountService.updateFollowers(model, username, follower);
         return model;
     }
-
-
-//    TODO:lock pages behind loginPage/access
-//    TODO:edit user details
-//    TODO:delete account
-
 }

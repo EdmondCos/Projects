@@ -3,7 +3,6 @@ package services;
 import dao.AccountRepository;
 import entities.Account;
 import entities.Follower;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;

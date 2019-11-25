@@ -25,11 +25,4 @@ public class PortalController {
         model.setViewName("userHome");
         return model;
     }
-
-    @GetMapping(value = "/edit-user")
-    public ModelAndView editUser(ModelAndView model) {
-        model.setViewName("userEditPage");
-        return model;
-    }
-
 }

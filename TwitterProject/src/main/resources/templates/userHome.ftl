@@ -26,7 +26,6 @@
 			<form action="http://localhost:8080/twitter/search" method="post">
 				<input id="search" type="text" name="keyword" placeholder="Search accounts "/>
 				<input type="hidden" name="username" value="${name!"N/A"}"/>
-				<input id="button" type="button" onclick="editPage()" value="Account Settings"/>
 			</form>
 		</th>
 	</tr>

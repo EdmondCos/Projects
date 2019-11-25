@@ -23,9 +23,4 @@ public class MessageController {
 
         return model;
     }
-
-//    TODO: Delete Messages
-//    TODO: Edit Messages
-//    TODO: Reply Messages
-
 }

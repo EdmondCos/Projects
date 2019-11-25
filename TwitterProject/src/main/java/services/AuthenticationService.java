@@ -19,17 +19,11 @@ public class AuthenticationService {
     private MessageService messageService;
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
 
 
     public ModelAndView register(ModelAndView model, Account account) {
         String attributeValue = isValidForRegistration(account);
         if (attributeValue.equals("")) {
-//            must add passwordEncoder.encode()
             account.setPassword(account.getPassword());
             account.setMessages(new LinkedList<>());
             accountRepository.save(account);
@@ -47,14 +41,6 @@ public class AuthenticationService {
         String attributeValue = isValidLogin(account);
 
         if (attributeValue.equals("")) {
-
-//            UsernamePasswordAuthenticationToken createToken = new UsernamePasswordAuthenticationToken(account.getEmail(), account.getPassword());
-//            Authentication authentication = authenticationManager.authenticate(createToken);
-//            SecurityContext context = SecurityContextHolder.getContext();
-//            context.setAuthentication(authentication);
-//            HttpSession sesssion = request.getSession(true);
-//            sesssion.setAttribute(SPRING_SECURITY_CONTEXT_KEY, context);
-
             String username = accountRepository.findByEmail(account.getEmail()).getUsername();
             model.addObject("name", username);
             return messageService.getMessagesOfUser(model, username);
@@ -85,7 +71,7 @@ public class AuthenticationService {
         if (existing == null) {
             return "Email is incorrect.";
         }
-        //Checks received password equals with stored one ---- must add passwordEncoder.encode()
+        //Checks received password equals with stored one
         else if (!account.getPassword().equals(existing.getPassword())) {
             return "Password is incorrect.";
         }

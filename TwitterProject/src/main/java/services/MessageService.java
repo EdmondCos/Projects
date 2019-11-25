@@ -37,7 +37,7 @@ public class MessageService {
 
         for (Message message : userMessages) {
             Account messageOwner = accountRepository.findByUsername(message.getUsername());
-            if (message.getUsername().equals(username) || account.getFollowers().contains(messageOwner)) {
+            if (username.equals(message.getUsername()) || account.getFollowers().contains(messageOwner)) {
                 toKeep.add(message);
             }
         }
@@ -48,15 +48,6 @@ public class MessageService {
         return model;
     }
 
-    public ModelAndView deleteMessage(ModelAndView model, Message message, String username) {
-        if (message.getUsername().equals(username)) {
-            messageRepository.delete(message);
-            return getMessagesOfUser(model, username);
-        } else {
-            model.addObject("deleteError", "You can only delete your texts");
-            return getMessagesOfUser(model, username);
-        }
-    }
 
     private List<Message> getAllMessagesReversed() {
         List<Message> temp = (List<Message>) messageRepository.findAll();
